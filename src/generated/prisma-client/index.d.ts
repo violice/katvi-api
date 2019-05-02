@@ -290,16 +290,16 @@ export type ProjectOrderByInput =
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "password_ASC"
+  | "password_DESC"
+  | "username_ASC"
+  | "username_DESC"
   | "firstName_ASC"
   | "firstName_DESC"
   | "lastName_ASC"
   | "lastName_DESC"
-  | "email_ASC"
-  | "email_DESC"
-  | "username_ASC"
-  | "username_DESC"
-  | "password_ASC"
-  | "password_DESC"
   | "avatar_ASC"
   | "avatar_DESC"
   | "settings_ASC"
@@ -409,11 +409,11 @@ export interface ColumnUpdateInput {
 }
 
 export interface UserUpdateDataInput {
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  username?: Maybe<String>;
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
-  email?: Maybe<String>;
-  username?: Maybe<String>;
-  password?: Maybe<String>;
   avatar?: Maybe<String>;
   settings?: Maybe<Json>;
 }
@@ -459,6 +459,7 @@ export type BoardWhereUniqueInput = AtLeastOne<{
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  email?: Maybe<String>;
 }>;
 
 export interface BoardWhereInput {
@@ -520,11 +521,11 @@ export interface ProjectUpdateOneInput {
 }
 
 export interface UserUpdateManyMutationInput {
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  username?: Maybe<String>;
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
-  email?: Maybe<String>;
-  username?: Maybe<String>;
-  password?: Maybe<String>;
   avatar?: Maybe<String>;
   settings?: Maybe<Json>;
 }
@@ -645,6 +646,48 @@ export interface UserWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  email?: Maybe<String>;
+  email_not?: Maybe<String>;
+  email_in?: Maybe<String[] | String>;
+  email_not_in?: Maybe<String[] | String>;
+  email_lt?: Maybe<String>;
+  email_lte?: Maybe<String>;
+  email_gt?: Maybe<String>;
+  email_gte?: Maybe<String>;
+  email_contains?: Maybe<String>;
+  email_not_contains?: Maybe<String>;
+  email_starts_with?: Maybe<String>;
+  email_not_starts_with?: Maybe<String>;
+  email_ends_with?: Maybe<String>;
+  email_not_ends_with?: Maybe<String>;
+  password?: Maybe<String>;
+  password_not?: Maybe<String>;
+  password_in?: Maybe<String[] | String>;
+  password_not_in?: Maybe<String[] | String>;
+  password_lt?: Maybe<String>;
+  password_lte?: Maybe<String>;
+  password_gt?: Maybe<String>;
+  password_gte?: Maybe<String>;
+  password_contains?: Maybe<String>;
+  password_not_contains?: Maybe<String>;
+  password_starts_with?: Maybe<String>;
+  password_not_starts_with?: Maybe<String>;
+  password_ends_with?: Maybe<String>;
+  password_not_ends_with?: Maybe<String>;
+  username?: Maybe<String>;
+  username_not?: Maybe<String>;
+  username_in?: Maybe<String[] | String>;
+  username_not_in?: Maybe<String[] | String>;
+  username_lt?: Maybe<String>;
+  username_lte?: Maybe<String>;
+  username_gt?: Maybe<String>;
+  username_gte?: Maybe<String>;
+  username_contains?: Maybe<String>;
+  username_not_contains?: Maybe<String>;
+  username_starts_with?: Maybe<String>;
+  username_not_starts_with?: Maybe<String>;
+  username_ends_with?: Maybe<String>;
+  username_not_ends_with?: Maybe<String>;
   firstName?: Maybe<String>;
   firstName_not?: Maybe<String>;
   firstName_in?: Maybe<String[] | String>;
@@ -673,48 +716,6 @@ export interface UserWhereInput {
   lastName_not_starts_with?: Maybe<String>;
   lastName_ends_with?: Maybe<String>;
   lastName_not_ends_with?: Maybe<String>;
-  email?: Maybe<String>;
-  email_not?: Maybe<String>;
-  email_in?: Maybe<String[] | String>;
-  email_not_in?: Maybe<String[] | String>;
-  email_lt?: Maybe<String>;
-  email_lte?: Maybe<String>;
-  email_gt?: Maybe<String>;
-  email_gte?: Maybe<String>;
-  email_contains?: Maybe<String>;
-  email_not_contains?: Maybe<String>;
-  email_starts_with?: Maybe<String>;
-  email_not_starts_with?: Maybe<String>;
-  email_ends_with?: Maybe<String>;
-  email_not_ends_with?: Maybe<String>;
-  username?: Maybe<String>;
-  username_not?: Maybe<String>;
-  username_in?: Maybe<String[] | String>;
-  username_not_in?: Maybe<String[] | String>;
-  username_lt?: Maybe<String>;
-  username_lte?: Maybe<String>;
-  username_gt?: Maybe<String>;
-  username_gte?: Maybe<String>;
-  username_contains?: Maybe<String>;
-  username_not_contains?: Maybe<String>;
-  username_starts_with?: Maybe<String>;
-  username_not_starts_with?: Maybe<String>;
-  username_ends_with?: Maybe<String>;
-  username_not_ends_with?: Maybe<String>;
-  password?: Maybe<String>;
-  password_not?: Maybe<String>;
-  password_in?: Maybe<String[] | String>;
-  password_not_in?: Maybe<String[] | String>;
-  password_lt?: Maybe<String>;
-  password_lte?: Maybe<String>;
-  password_gt?: Maybe<String>;
-  password_gte?: Maybe<String>;
-  password_contains?: Maybe<String>;
-  password_not_contains?: Maybe<String>;
-  password_starts_with?: Maybe<String>;
-  password_not_starts_with?: Maybe<String>;
-  password_ends_with?: Maybe<String>;
-  password_not_ends_with?: Maybe<String>;
   avatar?: Maybe<String>;
   avatar_not?: Maybe<String>;
   avatar_in?: Maybe<String[] | String>;
@@ -742,11 +743,11 @@ export interface AccessUpdateInput {
 
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
+  email: String;
+  password: String;
+  username?: Maybe<String>;
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
-  email: String;
-  username: String;
-  password: String;
   avatar?: Maybe<String>;
   settings?: Maybe<Json>;
 }
@@ -794,11 +795,11 @@ export interface ColumnWhereInput {
 }
 
 export interface UserUpdateInput {
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  username?: Maybe<String>;
   firstName?: Maybe<String>;
   lastName?: Maybe<String>;
-  email?: Maybe<String>;
-  username?: Maybe<String>;
-  password?: Maybe<String>;
   avatar?: Maybe<String>;
   settings?: Maybe<Json>;
 }
@@ -831,11 +832,11 @@ export interface NodeNode {
 
 export interface UserPreviousValues {
   id: ID_Output;
+  email: String;
+  password: String;
+  username?: String;
   firstName?: String;
   lastName?: String;
-  email: String;
-  username: String;
-  password: String;
   avatar?: String;
   settings?: Json;
 }
@@ -844,11 +845,11 @@ export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  username: () => Promise<String>;
   firstName: () => Promise<String>;
   lastName: () => Promise<String>;
-  email: () => Promise<String>;
-  username: () => Promise<String>;
-  password: () => Promise<String>;
   avatar: () => Promise<String>;
   settings: () => Promise<Json>;
 }
@@ -857,11 +858,11 @@ export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  username: () => Promise<AsyncIterator<String>>;
   firstName: () => Promise<AsyncIterator<String>>;
   lastName: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-  username: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
   avatar: () => Promise<AsyncIterator<String>>;
   settings: () => Promise<AsyncIterator<Json>>;
 }
@@ -1510,22 +1511,22 @@ export interface ProjectPreviousValuesSubscription
 
 export interface User {
   id: ID_Output;
+  email: String;
+  password: String;
+  username?: String;
   firstName?: String;
   lastName?: String;
-  email: String;
-  username: String;
-  password: String;
   avatar?: String;
   settings?: Json;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  username: () => Promise<String>;
   firstName: () => Promise<String>;
   lastName: () => Promise<String>;
-  email: () => Promise<String>;
-  username: () => Promise<String>;
-  password: () => Promise<String>;
   avatar: () => Promise<String>;
   settings: () => Promise<Json>;
 }
@@ -1534,11 +1535,11 @@ export interface UserSubscription
   extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  username: () => Promise<AsyncIterator<String>>;
   firstName: () => Promise<AsyncIterator<String>>;
   lastName: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-  username: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
   avatar: () => Promise<AsyncIterator<String>>;
   settings: () => Promise<AsyncIterator<Json>>;
 }
@@ -1547,11 +1548,11 @@ export interface UserNullablePromise
   extends Promise<User | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  username: () => Promise<String>;
   firstName: () => Promise<String>;
   lastName: () => Promise<String>;
-  email: () => Promise<String>;
-  username: () => Promise<String>;
-  password: () => Promise<String>;
   avatar: () => Promise<String>;
   settings: () => Promise<Json>;
 }

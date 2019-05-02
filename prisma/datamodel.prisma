@@ -1,10 +1,10 @@
 type User {
   id: ID! @id
+  email: String! @unique
+  password: String!
+  username: String
   firstName: String
   lastName: String
-  email: String!
-  username: String!
-  password: String!
   avatar: String
   settings: Json
 }

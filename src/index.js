@@ -18,10 +18,10 @@ app.use(queryParser({
   parseNull: true,
   parseBoolean: true,
 }));
-app.use(cookieParser(env.COOKIE_SECRET));
+app.use(cookieParser());
 app.use(morgan(env.MORGAN_TEMPLATE));
 app.use(cors);
-// app.use(jwt);
+app.use(jwt);
 
 const router = express.Router();
 router.use('/api', routes);
