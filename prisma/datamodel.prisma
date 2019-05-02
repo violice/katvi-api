@@ -1,0 +1,38 @@
+type User {
+  id: ID! @id
+  firstName: String
+  lastName: String
+  email: String!
+  username: String!
+  password: String!
+  avatar: String
+  settings: Json
+}
+
+type Project {
+  id: ID! @id
+  name: String!
+  description: String
+  user: User!
+}
+
+type Access {
+  id: ID! @id
+  project: Project!
+  user: User!
+  permissions: Json
+}
+
+type Board {
+  id: ID! @id
+  project: Project
+  name: String!
+  description: String
+}
+
+type Column {
+  id: ID! @id
+  board: Board!
+  name: String!
+  settings: Json
+}
