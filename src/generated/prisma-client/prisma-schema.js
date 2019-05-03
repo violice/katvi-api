@@ -102,6 +102,10 @@ type AggregateBoard {
   count: Int!
 }
 
+type AggregateCard {
+  count: Int!
+}
+
 type AggregateColumn {
   count: Int!
 }
@@ -123,6 +127,7 @@ type Board {
   project: Project
   name: String!
   description: String
+  columns(where: ColumnWhereInput, orderBy: ColumnOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Column!]
 }
 
 type BoardConnection {
@@ -136,11 +141,19 @@ input BoardCreateInput {
   project: ProjectCreateOneInput
   name: String!
   description: String
+  columns: ColumnCreateManyWithoutBoardInput
 }
 
-input BoardCreateOneInput {
-  create: BoardCreateInput
+input BoardCreateOneWithoutColumnsInput {
+  create: BoardCreateWithoutColumnsInput
   connect: BoardWhereUniqueInput
+}
+
+input BoardCreateWithoutColumnsInput {
+  id: ID
+  project: ProjectCreateOneInput
+  name: String!
+  description: String
 }
 
 type BoardEdge {
@@ -181,16 +194,11 @@ input BoardSubscriptionWhereInput {
   NOT: [BoardSubscriptionWhereInput!]
 }
 
-input BoardUpdateDataInput {
-  project: ProjectUpdateOneInput
-  name: String
-  description: String
-}
-
 input BoardUpdateInput {
   project: ProjectUpdateOneInput
   name: String
   description: String
+  columns: ColumnUpdateManyWithoutBoardInput
 }
 
 input BoardUpdateManyMutationInput {
@@ -198,16 +206,22 @@ input BoardUpdateManyMutationInput {
   description: String
 }
 
-input BoardUpdateOneRequiredInput {
-  create: BoardCreateInput
-  update: BoardUpdateDataInput
-  upsert: BoardUpsertNestedInput
+input BoardUpdateOneRequiredWithoutColumnsInput {
+  create: BoardCreateWithoutColumnsInput
+  update: BoardUpdateWithoutColumnsDataInput
+  upsert: BoardUpsertWithoutColumnsInput
   connect: BoardWhereUniqueInput
 }
 
-input BoardUpsertNestedInput {
-  update: BoardUpdateDataInput!
-  create: BoardCreateInput!
+input BoardUpdateWithoutColumnsDataInput {
+  project: ProjectUpdateOneInput
+  name: String
+  description: String
+}
+
+input BoardUpsertWithoutColumnsInput {
+  update: BoardUpdateWithoutColumnsDataInput!
+  create: BoardCreateWithoutColumnsInput!
 }
 
 input BoardWhereInput {
@@ -254,6 +268,9 @@ input BoardWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
+  columns_every: ColumnWhereInput
+  columns_some: ColumnWhereInput
+  columns_none: ColumnWhereInput
   AND: [BoardWhereInput!]
   OR: [BoardWhereInput!]
   NOT: [BoardWhereInput!]
@@ -263,11 +280,249 @@ input BoardWhereUniqueInput {
   id: ID
 }
 
+type Card {
+  id: ID!
+  column: Column!
+  priority: Priority!
+  name: String!
+  description: String
+}
+
+type CardConnection {
+  pageInfo: PageInfo!
+  edges: [CardEdge]!
+  aggregate: AggregateCard!
+}
+
+input CardCreateInput {
+  id: ID
+  column: ColumnCreateOneWithoutCardsInput!
+  priority: Priority!
+  name: String!
+  description: String
+}
+
+input CardCreateManyWithoutColumnInput {
+  create: [CardCreateWithoutColumnInput!]
+  connect: [CardWhereUniqueInput!]
+}
+
+input CardCreateWithoutColumnInput {
+  id: ID
+  priority: Priority!
+  name: String!
+  description: String
+}
+
+type CardEdge {
+  node: Card!
+  cursor: String!
+}
+
+enum CardOrderByInput {
+  id_ASC
+  id_DESC
+  priority_ASC
+  priority_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+}
+
+type CardPreviousValues {
+  id: ID!
+  priority: Priority!
+  name: String!
+  description: String
+}
+
+input CardScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  priority: Priority
+  priority_not: Priority
+  priority_in: [Priority!]
+  priority_not_in: [Priority!]
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  AND: [CardScalarWhereInput!]
+  OR: [CardScalarWhereInput!]
+  NOT: [CardScalarWhereInput!]
+}
+
+type CardSubscriptionPayload {
+  mutation: MutationType!
+  node: Card
+  updatedFields: [String!]
+  previousValues: CardPreviousValues
+}
+
+input CardSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CardWhereInput
+  AND: [CardSubscriptionWhereInput!]
+  OR: [CardSubscriptionWhereInput!]
+  NOT: [CardSubscriptionWhereInput!]
+}
+
+input CardUpdateInput {
+  column: ColumnUpdateOneRequiredWithoutCardsInput
+  priority: Priority
+  name: String
+  description: String
+}
+
+input CardUpdateManyDataInput {
+  priority: Priority
+  name: String
+  description: String
+}
+
+input CardUpdateManyMutationInput {
+  priority: Priority
+  name: String
+  description: String
+}
+
+input CardUpdateManyWithoutColumnInput {
+  create: [CardCreateWithoutColumnInput!]
+  delete: [CardWhereUniqueInput!]
+  connect: [CardWhereUniqueInput!]
+  set: [CardWhereUniqueInput!]
+  disconnect: [CardWhereUniqueInput!]
+  update: [CardUpdateWithWhereUniqueWithoutColumnInput!]
+  upsert: [CardUpsertWithWhereUniqueWithoutColumnInput!]
+  deleteMany: [CardScalarWhereInput!]
+  updateMany: [CardUpdateManyWithWhereNestedInput!]
+}
+
+input CardUpdateManyWithWhereNestedInput {
+  where: CardScalarWhereInput!
+  data: CardUpdateManyDataInput!
+}
+
+input CardUpdateWithoutColumnDataInput {
+  priority: Priority
+  name: String
+  description: String
+}
+
+input CardUpdateWithWhereUniqueWithoutColumnInput {
+  where: CardWhereUniqueInput!
+  data: CardUpdateWithoutColumnDataInput!
+}
+
+input CardUpsertWithWhereUniqueWithoutColumnInput {
+  where: CardWhereUniqueInput!
+  update: CardUpdateWithoutColumnDataInput!
+  create: CardCreateWithoutColumnInput!
+}
+
+input CardWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  column: ColumnWhereInput
+  priority: Priority
+  priority_not: Priority
+  priority_in: [Priority!]
+  priority_not_in: [Priority!]
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  AND: [CardWhereInput!]
+  OR: [CardWhereInput!]
+  NOT: [CardWhereInput!]
+}
+
+input CardWhereUniqueInput {
+  id: ID
+}
+
 type Column {
   id: ID!
   board: Board!
   name: String!
   settings: Json
+  cards(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Card!]
 }
 
 type ColumnConnection {
@@ -278,7 +533,32 @@ type ColumnConnection {
 
 input ColumnCreateInput {
   id: ID
-  board: BoardCreateOneInput!
+  board: BoardCreateOneWithoutColumnsInput!
+  name: String!
+  settings: Json
+  cards: CardCreateManyWithoutColumnInput
+}
+
+input ColumnCreateManyWithoutBoardInput {
+  create: [ColumnCreateWithoutBoardInput!]
+  connect: [ColumnWhereUniqueInput!]
+}
+
+input ColumnCreateOneWithoutCardsInput {
+  create: ColumnCreateWithoutCardsInput
+  connect: ColumnWhereUniqueInput
+}
+
+input ColumnCreateWithoutBoardInput {
+  id: ID
+  name: String!
+  settings: Json
+  cards: CardCreateManyWithoutColumnInput
+}
+
+input ColumnCreateWithoutCardsInput {
+  id: ID
+  board: BoardCreateOneWithoutColumnsInput!
   name: String!
   settings: Json
 }
@@ -303,6 +583,40 @@ type ColumnPreviousValues {
   settings: Json
 }
 
+input ColumnScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [ColumnScalarWhereInput!]
+  OR: [ColumnScalarWhereInput!]
+  NOT: [ColumnScalarWhereInput!]
+}
+
 type ColumnSubscriptionPayload {
   mutation: MutationType!
   node: Column
@@ -322,7 +636,13 @@ input ColumnSubscriptionWhereInput {
 }
 
 input ColumnUpdateInput {
-  board: BoardUpdateOneRequiredInput
+  board: BoardUpdateOneRequiredWithoutColumnsInput
+  name: String
+  settings: Json
+  cards: CardUpdateManyWithoutColumnInput
+}
+
+input ColumnUpdateManyDataInput {
   name: String
   settings: Json
 }
@@ -330,6 +650,58 @@ input ColumnUpdateInput {
 input ColumnUpdateManyMutationInput {
   name: String
   settings: Json
+}
+
+input ColumnUpdateManyWithoutBoardInput {
+  create: [ColumnCreateWithoutBoardInput!]
+  delete: [ColumnWhereUniqueInput!]
+  connect: [ColumnWhereUniqueInput!]
+  set: [ColumnWhereUniqueInput!]
+  disconnect: [ColumnWhereUniqueInput!]
+  update: [ColumnUpdateWithWhereUniqueWithoutBoardInput!]
+  upsert: [ColumnUpsertWithWhereUniqueWithoutBoardInput!]
+  deleteMany: [ColumnScalarWhereInput!]
+  updateMany: [ColumnUpdateManyWithWhereNestedInput!]
+}
+
+input ColumnUpdateManyWithWhereNestedInput {
+  where: ColumnScalarWhereInput!
+  data: ColumnUpdateManyDataInput!
+}
+
+input ColumnUpdateOneRequiredWithoutCardsInput {
+  create: ColumnCreateWithoutCardsInput
+  update: ColumnUpdateWithoutCardsDataInput
+  upsert: ColumnUpsertWithoutCardsInput
+  connect: ColumnWhereUniqueInput
+}
+
+input ColumnUpdateWithoutBoardDataInput {
+  name: String
+  settings: Json
+  cards: CardUpdateManyWithoutColumnInput
+}
+
+input ColumnUpdateWithoutCardsDataInput {
+  board: BoardUpdateOneRequiredWithoutColumnsInput
+  name: String
+  settings: Json
+}
+
+input ColumnUpdateWithWhereUniqueWithoutBoardInput {
+  where: ColumnWhereUniqueInput!
+  data: ColumnUpdateWithoutBoardDataInput!
+}
+
+input ColumnUpsertWithoutCardsInput {
+  update: ColumnUpdateWithoutCardsDataInput!
+  create: ColumnCreateWithoutCardsInput!
+}
+
+input ColumnUpsertWithWhereUniqueWithoutBoardInput {
+  where: ColumnWhereUniqueInput!
+  update: ColumnUpdateWithoutBoardDataInput!
+  create: ColumnCreateWithoutBoardInput!
 }
 
 input ColumnWhereInput {
@@ -362,6 +734,9 @@ input ColumnWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  cards_every: CardWhereInput
+  cards_some: CardWhereInput
+  cards_none: CardWhereInput
   AND: [ColumnWhereInput!]
   OR: [ColumnWhereInput!]
   NOT: [ColumnWhereInput!]
@@ -388,6 +763,12 @@ type Mutation {
   upsertBoard(where: BoardWhereUniqueInput!, create: BoardCreateInput!, update: BoardUpdateInput!): Board!
   deleteBoard(where: BoardWhereUniqueInput!): Board
   deleteManyBoards(where: BoardWhereInput): BatchPayload!
+  createCard(data: CardCreateInput!): Card!
+  updateCard(data: CardUpdateInput!, where: CardWhereUniqueInput!): Card
+  updateManyCards(data: CardUpdateManyMutationInput!, where: CardWhereInput): BatchPayload!
+  upsertCard(where: CardWhereUniqueInput!, create: CardCreateInput!, update: CardUpdateInput!): Card!
+  deleteCard(where: CardWhereUniqueInput!): Card
+  deleteManyCards(where: CardWhereInput): BatchPayload!
   createColumn(data: ColumnCreateInput!): Column!
   updateColumn(data: ColumnUpdateInput!, where: ColumnWhereUniqueInput!): Column
   updateManyColumns(data: ColumnUpdateManyMutationInput!, where: ColumnWhereInput): BatchPayload!
@@ -423,6 +804,15 @@ type PageInfo {
   hasPreviousPage: Boolean!
   startCursor: String
   endCursor: String
+}
+
+enum Priority {
+  Critical
+  Blocker
+  High
+  Medium
+  Low
+  Minor
 }
 
 type Project {
@@ -586,6 +976,9 @@ type Query {
   board(where: BoardWhereUniqueInput!): Board
   boards(where: BoardWhereInput, orderBy: BoardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Board]!
   boardsConnection(where: BoardWhereInput, orderBy: BoardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BoardConnection!
+  card(where: CardWhereUniqueInput!): Card
+  cards(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Card]!
+  cardsConnection(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CardConnection!
   column(where: ColumnWhereUniqueInput!): Column
   columns(where: ColumnWhereInput, orderBy: ColumnOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Column]!
   columnsConnection(where: ColumnWhereInput, orderBy: ColumnOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ColumnConnection!
@@ -601,6 +994,7 @@ type Query {
 type Subscription {
   access(where: AccessSubscriptionWhereInput): AccessSubscriptionPayload
   board(where: BoardSubscriptionWhereInput): BoardSubscriptionPayload
+  card(where: CardSubscriptionWhereInput): CardSubscriptionPayload
   column(where: ColumnSubscriptionWhereInput): ColumnSubscriptionPayload
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload

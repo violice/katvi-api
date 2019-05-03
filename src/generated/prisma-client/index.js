@@ -23,6 +23,14 @@ var models = [
   {
     name: "Column",
     embedded: false
+  },
+  {
+    name: "Card",
+    embedded: false
+  },
+  {
+    name: "Priority",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({

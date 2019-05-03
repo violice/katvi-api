@@ -28,6 +28,7 @@ type Board {
   project: Project
   name: String!
   description: String
+  columns: [Column]
 }
 
 type Column {
@@ -35,4 +36,22 @@ type Column {
   board: Board!
   name: String!
   settings: Json
+  cards: [Card]
+}
+
+type Card {
+  id: ID! @id
+  column: Column!
+  priority: Priority!
+  name: String!
+  description: String
+}
+
+enum Priority {
+  Critical
+  Blocker
+  High
+  Medium
+  Low
+  Minor
 }
