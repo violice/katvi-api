@@ -284,6 +284,7 @@ type Card {
   id: ID!
   column: Column!
   priority: Priority!
+  type: Type!
   name: String!
   description: String
 }
@@ -298,6 +299,7 @@ input CardCreateInput {
   id: ID
   column: ColumnCreateOneWithoutCardsInput!
   priority: Priority!
+  type: Type!
   name: String!
   description: String
 }
@@ -310,6 +312,7 @@ input CardCreateManyWithoutColumnInput {
 input CardCreateWithoutColumnInput {
   id: ID
   priority: Priority!
+  type: Type!
   name: String!
   description: String
 }
@@ -324,6 +327,8 @@ enum CardOrderByInput {
   id_DESC
   priority_ASC
   priority_DESC
+  type_ASC
+  type_DESC
   name_ASC
   name_DESC
   description_ASC
@@ -333,6 +338,7 @@ enum CardOrderByInput {
 type CardPreviousValues {
   id: ID!
   priority: Priority!
+  type: Type!
   name: String!
   description: String
 }
@@ -356,6 +362,10 @@ input CardScalarWhereInput {
   priority_not: Priority
   priority_in: [Priority!]
   priority_not_in: [Priority!]
+  type: Type
+  type_not: Type
+  type_in: [Type!]
+  type_not_in: [Type!]
   name: String
   name_not: String
   name_in: [String!]
@@ -410,18 +420,21 @@ input CardSubscriptionWhereInput {
 input CardUpdateInput {
   column: ColumnUpdateOneRequiredWithoutCardsInput
   priority: Priority
+  type: Type
   name: String
   description: String
 }
 
 input CardUpdateManyDataInput {
   priority: Priority
+  type: Type
   name: String
   description: String
 }
 
 input CardUpdateManyMutationInput {
   priority: Priority
+  type: Type
   name: String
   description: String
 }
@@ -445,6 +458,7 @@ input CardUpdateManyWithWhereNestedInput {
 
 input CardUpdateWithoutColumnDataInput {
   priority: Priority
+  type: Type
   name: String
   description: String
 }
@@ -480,6 +494,10 @@ input CardWhereInput {
   priority_not: Priority
   priority_in: [Priority!]
   priority_not_in: [Priority!]
+  type: Type
+  type_not: Type
+  type_in: [Type!]
+  type_not_in: [Type!]
   name: String
   name_not: String
   name_in: [String!]
@@ -998,6 +1016,12 @@ type Subscription {
   column(where: ColumnSubscriptionWhereInput): ColumnSubscriptionPayload
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+enum Type {
+  Task
+  Bug
+  Improvement
 }
 
 type User {

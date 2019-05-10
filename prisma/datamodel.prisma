@@ -43,6 +43,7 @@ type Card {
   id: ID! @id
   column: Column!
   priority: Priority!
+  type: Type!
   name: String!
   description: String
 }
@@ -54,4 +55,10 @@ enum Priority {
   Medium
   Low
   Minor
+}
+
+enum Type {
+  Task
+  Bug
+  Improvement
 }

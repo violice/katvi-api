@@ -31,6 +31,10 @@ var models = [
   {
     name: "Priority",
     embedded: false
+  },
+  {
+    name: "Type",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
