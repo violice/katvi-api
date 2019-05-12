@@ -28,5 +28,5 @@ router.use('/api', routes);
 app.use('/', router);
 
 const server = http.createServer(app);
-server.listen(env.PORT || process.env.PORT);
+server.listen(process.env.PORT || env.PORT);
 console.log(`--- SERVER IS LISTENING ON PORT ${env.PORT} ---`);
