@@ -21,8 +21,8 @@ const login = async (req, res) => {
       if (check) {
         delete user.password;
         const token = createToken(user);
-        res.cookie('token', token);
-        res.status(200).json({ user });
+        res.cookie('katvi-token', token);
+        res.status(200).json(user);
       } else {
         res.status(422).json({ error: 'Incorrect password' });
       }
@@ -51,8 +51,8 @@ const registration = async (req, res) => {
     const user = await prisma.createUser({ email, password: hash });
     delete user.password;
     const token = createToken(user);
-    res.cookie('token', token);
-    res.status(200).json({ user });
+    res.cookie('katvi-token', token);
+    res.status(200).json(user);
   } catch (e) {
     res.status(422).json({
       error: e.message,
