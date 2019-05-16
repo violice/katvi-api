@@ -51,7 +51,7 @@ const getProject = async (req, res) => {
       const project = await prisma.project({ id });
       return res.status(200).json({ ...project, permissions: access.permissions });
     }
-    res.status(422).json({ error: 'Project not found' });
+    res.status(422).json(null);
   } catch (e) {
     res.status(422).json({
       error: e.message,
