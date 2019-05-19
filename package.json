@@ -6,7 +6,6 @@
   "scripts": {
     "start": "cross-env NODE_PATH=./src nodemon --exec babel-node src",
     "start:heroku": "cross-env NODE_ENV=production NODE_PATH=./src nodemon --exec babel-node src",
-    "build": "babel src --out-dir dist",
     "prisma:generate": "cd prisma && prisma generate",
     "prisma:deploy": "cd prisma && prisma deploy",
     "prisma": "npm run prisma:generate && npm run prisma:deploy"
