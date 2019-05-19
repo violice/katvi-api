@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "cross-env NODE_PATH=./src nodemon --exec babel-node src",
+    "start:heroku": "cross-env NODE_ENV=production NODE_PATH=./src nodemon --exec babel-node src",
     "build": "babel src --out-dir dist",
     "prisma:generate": "cd prisma && prisma generate",
     "prisma:deploy": "cd prisma && prisma deploy",
@@ -22,7 +23,7 @@
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "cross-env": "^5.2.0",
-    "dotenv": "^7.0.0",
+    "dotenv-flow": "^0.4.0",
     "express": "^4.16.4",
     "express-query-parser": "^1.0.2",
     "jsonwebtoken": "^8.4.0",

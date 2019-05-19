@@ -1455,6 +1455,13 @@ dot-prop@^4.1.0:
   dependencies:
     is-obj "^1.0.0"
 
+dotenv-flow@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/dotenv-flow/-/dotenv-flow-0.4.0.tgz#8a334b7b77ac8a3cdbaec69dd5e8e74c771500e1"
+  integrity sha512-GdIzSgFuyFfSP00g751eUsL+3n2GSevG1csTRDF6lpbMCqyPzCAkvpVFJuMf1rKwl9PIrwmxoA+8wkYRNzQSwg==
+  dependencies:
+    dotenv "^7.0.0"
+
 dotenv@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-7.0.0.tgz#a2be3cd52736673206e8a85fb5210eea29628e7c"

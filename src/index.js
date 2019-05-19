@@ -4,11 +4,12 @@ import bodyParser from 'body-parser';
 import queryParser from 'express-query-parser';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
+import env from 'dotenv-flow';
+env.config();
 
 import jwt from './middlewares/jwt';
 import routes from './routes';
 
-import env from './env';
 import cors from './cors';
 
 const app = express();
@@ -19,8 +20,8 @@ app.use(queryParser({
   parseNull: true,
   parseBoolean: true,
 }));
-app.use(cookieParser(env.COOKIE_SECRET));
-app.use(morgan(env.MORGAN_TEMPLATE));
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(morgan(process.env.MORGAN_TEMPLATE));
 app.use(cors);
 app.use(jwt);
 
@@ -29,5 +30,5 @@ router.use('/api', routes);
 app.use('/', router);
 
 const server = http.createServer(app);
-server.listen(process.env.PORT || env.PORT);
-console.log(`--- SERVER IS LISTENING ON PORT ${env.PORT} ---`);
+server.listen(process.env.PORT);
+console.log(`--- SERVER IS LISTENING ON PORT ${process.env.PORT} ---`);

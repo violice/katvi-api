@@ -1,7 +1,5 @@
 import jwt from 'jsonwebtoken';
 
-import env from 'env';
-
 const WHITE_LIST = [
   '/api/login',
   '/api/registration',
@@ -13,7 +11,7 @@ export default (req, res, next) => {
   } else {
     const { 'katvi-token': token } = req.cookies;
     if (token) {
-      jwt.verify(token, env.JWT_SECRET, (err, decoded) => {
+      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
           res.status(403).json({ error: 'Failed to authenticate token' });
         } else if (new Date().getTime() / 1000 > decoded.exp) {

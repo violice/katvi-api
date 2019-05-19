@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-import env from 'env';
 import { prisma } from 'generated/prisma-client';
 
-const createToken = user => jwt.sign(user, env.JWT_SECRET, { expiresIn: '14d' });
+const createToken = user => jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '14d' });
 
 const login = async (req, res) => {
   try {
@@ -21,7 +20,7 @@ const login = async (req, res) => {
       if (check) {
         delete user.password;
         const token = createToken(user);
-        res.cookie('katvi-token', token, { domain: 'katvi.pro' });
+        res.cookie('katvi-token', token, { domain: process.env.COOKIE_DOMAIN });
         res.status(200).json(user);
       } else {
         res.status(422).json({ error: 'Incorrect password' });
@@ -47,11 +46,11 @@ const registration = async (req, res) => {
     if (oldUser) {
       return res.status(422).json({ error: 'User with this email already exist' });
     }
-    const hash = await bcrypt.hash(password, Number(env.BCRYPT_SALT_ROUNDS));
+    const hash = await bcrypt.hash(password, Number(process.env.BCRYPT_SALT_ROUNDS));
     const user = await prisma.createUser({ email, password: hash });
     delete user.password;
     const token = createToken(user);
-    res.cookie('katvi-token', token, { domain: 'katvi.pro' });
+    res.cookie('katvi-token', token, { domain: process.env.COOKIE_DOMAIN });
     res.status(200).json(user);
   } catch (e) {
     res.status(422).json({
