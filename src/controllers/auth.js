@@ -20,6 +20,8 @@ const login = async (req, res) => {
       if (check) {
         delete user.password;
         const token = createToken(user);
+        console.log(user);
+        console.log(token);
         res.cookie('katvi-token', token, { domain: process.env.COOKIE_DOMAIN });
         res.status(200).json(user);
       } else {
