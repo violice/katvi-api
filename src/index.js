@@ -20,7 +20,7 @@ app.use(queryParser({
   parseNull: true,
   parseBoolean: true,
 }));
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser());
 app.use(morgan(process.env.MORGAN_TEMPLATE));
 app.use(cors);
 app.use(jwt);
