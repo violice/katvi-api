@@ -9,7 +9,7 @@ const createToken = user => jwt.sign(user, process.env.JWT_SECRET, { expiresIn: 
 const getDomain = hostname => {
   if (hostname === 'localhost') return hostname;
   const { domain, tld } = parseDomain(hostname);
-  return domain + tld;
+  return `${domain}.${tld}`;
 }
 
 const login = async (req, res) => {
