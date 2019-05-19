@@ -15,6 +15,8 @@ const fragment = `
 const getProjects = async (req, res) => {
   try {
     const { headers: { user } } = req;
+    console.log(user);
+    console.log(user.id);
     const accesses = await prisma.accesses({
       where: {
         user: {
