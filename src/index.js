@@ -13,7 +13,6 @@ import routes from './routes';
 import cors from './cors';
 
 const app = express();
-app.set('trust proxy', 1);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(queryParser({
@@ -21,9 +20,12 @@ app.use(queryParser({
   parseBoolean: true,
 }));
 app.use(cookieParser());
-app.use(morgan(process.env.MORGAN_TEMPLATE));
 app.use(cors);
 app.use(jwt);
+
+if (process.env !== 'production') {
+  app.use(morgan(process.env.MORGAN_TEMPLATE));
+}
 
 const router = express.Router();
 router.use('/api', routes);
