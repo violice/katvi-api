@@ -8,13 +8,13 @@ const createToken = user => jwt.sign(user, process.env.JWT_SECRET, { expiresIn: 
 
 const getDomain = hostname => {
   if (hostname === 'localhost') return hostname;
-  const { domain, tld } = parseDomain(req.hostname);
+  const { domain, tld } = parseDomain(hostname);
   return domain + tld;
 }
 
 const login = async (req, res) => {
   try {
-    const { body: { email, password } } = req;
+    const { body: { email, password }, hostname } = req;
     if (!email) {
       return res.status(422).json({ error: 'Email is required' });
     }
@@ -27,7 +27,7 @@ const login = async (req, res) => {
       if (check) {
         delete user.password;
         const token = createToken(user);
-        const domain = getDomain(req.hostname);
+        const domain = getDomain(hostname);
         res.clearCookie('katvi-token')
         res.cookie('katvi-token', token, { domain });
         res.status(200).json(user);
@@ -44,7 +44,7 @@ const login = async (req, res) => {
 
 const registration = async (req, res) => {
   try {
-    const { body: { email, password } } = req;
+    const { body: { email, password }, hostname } = req;
     if (!email) {
       return res.status(422).json({ error: 'Email is required' });
     }
@@ -59,7 +59,7 @@ const registration = async (req, res) => {
     const user = await prisma.createUser({ email, password: hash });
     delete user.password;
     const token = createToken(user);
-    const domain = getDomain(req.hostname);
+    const domain = getDomain(hostname);
     res.clearCookie('katvi-token')
     res.cookie('katvi-token', token, { domain });
     res.status(200).json(user);
