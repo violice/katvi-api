@@ -22,6 +22,7 @@ const login = async (req, res) => {
         const token = createToken(user);
         console.log(user);
         console.log(token);
+        res.clearCookie('katvi-token');
         res.cookie('katvi-token', token, { domain: process.env.COOKIE_DOMAIN });
         res.status(200).json(user);
       } else {
@@ -52,6 +53,7 @@ const registration = async (req, res) => {
     const user = await prisma.createUser({ email, password: hash });
     delete user.password;
     const token = createToken(user);
+    res.clearCookie('katvi-token');
     res.cookie('katvi-token', token, { domain: process.env.COOKIE_DOMAIN });
     res.status(200).json(user);
   } catch (e) {
