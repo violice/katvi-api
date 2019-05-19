@@ -28,6 +28,7 @@
     "jsonwebtoken": "^8.4.0",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9",
+    "parse-domain": "^2.1.7",
     "prisma-client-lib": "^1.32.0"
   },
   "devDependencies": {

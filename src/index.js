@@ -34,4 +34,3 @@ app.use('/', router);
 const server = http.createServer(app);
 server.listen(process.env.PORT);
 console.log(`--- SERVER IS LISTENING ON PORT ${process.env.PORT} ---`);
-console.log(process.env);

@@ -1,9 +1,16 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import parseDomain from 'parse-domain';
 
 import { prisma } from 'generated/prisma-client';
 
 const createToken = user => jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '14d' });
+
+const getDomain = hostname => {
+  if (hostname === 'localhost') return hostname;
+  const { domain, tld } = parseDomain(req.hostname);
+  return domain + tld;
+}
 
 const login = async (req, res) => {
   try {
@@ -20,8 +27,9 @@ const login = async (req, res) => {
       if (check) {
         delete user.password;
         const token = createToken(user);
-        res.clearCookie('katvi-token');
-        res.cookie('katvi-token', token, { domain: process.env.COOKIE_DOMAIN });
+        const domain = getDomain(req.hostname);
+        res.clearCookie('katvi-token')
+        res.cookie('katvi-token', token, { domain });
         res.status(200).json(user);
       } else {
         res.status(422).json({ error: 'Incorrect password' });
@@ -51,8 +59,9 @@ const registration = async (req, res) => {
     const user = await prisma.createUser({ email, password: hash });
     delete user.password;
     const token = createToken(user);
-    res.clearCookie('katvi-token');
-    res.cookie('katvi-token', token, { domain: process.env.COOKIE_DOMAIN });
+    const domain = getDomain(req.hostname);
+    res.clearCookie('katvi-token')
+    res.cookie('katvi-token', token, { domain });
     res.status(200).json(user);
   } catch (e) {
     res.status(422).json({
