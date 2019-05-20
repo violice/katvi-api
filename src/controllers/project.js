@@ -108,7 +108,7 @@ const createProject = async (req, res) => {
       name: boardName,
       description: boardDescription,
     });
-    res.status(200).json({ project });
+    res.status(200).json(project);
   } catch (e) {
     res.status(422).json({ error: e.message, raw: e });
   }
