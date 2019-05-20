@@ -8,6 +8,13 @@ const fragment = `
       id
       name
       description
+      user {
+        id
+        email
+        username
+        firstName
+        lastName
+      }
     }
   }
 `;
@@ -62,7 +69,14 @@ const getProject = async (req, res) => {
 
 const createProject = async (req, res) => {
   try {
-    const { body: { name, description }, headers: { user } } = req;
+    const {
+      body: {
+        name,
+        description,
+        boardName,
+        boardDescription,
+      }, headers: { user },
+    } = req;
     const project = await prisma.createProject({
       name,
       description,
@@ -91,7 +105,8 @@ const createProject = async (req, res) => {
           id: project.id,
         },
       },
-      name: 'Default Board',
+      name: boardName,
+      description: boardDescription,
     });
     res.status(200).json({ project });
   } catch (e) {

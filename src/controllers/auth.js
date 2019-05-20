@@ -6,11 +6,11 @@ import { prisma } from 'generated/prisma-client';
 
 const createToken = user => jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '14d' });
 
-const getDomain = hostname => {
+const getDomain = (hostname) => {
   if (hostname === 'localhost') return hostname;
   const { domain, tld } = parseDomain(hostname);
   return `${domain}.${tld}`;
-}
+};
 
 const login = async (req, res) => {
   try {
@@ -28,7 +28,7 @@ const login = async (req, res) => {
         delete user.password;
         const token = createToken(user);
         const domain = getDomain(hostname);
-        res.clearCookie('katvi-token')
+        res.clearCookie('katvi-token');
         res.cookie('katvi-token', token, { domain });
         res.status(200).json(user);
       } else {
@@ -60,7 +60,7 @@ const registration = async (req, res) => {
     delete user.password;
     const token = createToken(user);
     const domain = getDomain(hostname);
-    res.clearCookie('katvi-token')
+    res.clearCookie('katvi-token');
     res.cookie('katvi-token', token, { domain });
     res.status(200).json(user);
   } catch (e) {
