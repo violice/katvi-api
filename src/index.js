@@ -4,15 +4,16 @@ import bodyParser from 'body-parser';
 import queryParser from 'express-query-parser';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
-import env from 'dotenv-flow';
-env.config();
+import env from 'dotenv';
 
 import jwt from './middlewares/jwt';
 import routes from './routes';
-
 import cors from './cors';
 
+env.config();
+
 const app = express();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(queryParser({
