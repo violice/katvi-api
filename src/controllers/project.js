@@ -1,6 +1,6 @@
 import { prisma } from 'generated/prisma-client';
 
-const fragment = `
+const accessFragment = `
   fragment AccessibleProjects on Access {
     id
     permissions
@@ -19,6 +19,18 @@ const fragment = `
   }
 `;
 
+const projectFragment = `
+  fragment ProjectPopulate on Project {
+    id
+    name
+    description
+    boards {
+      id
+      name
+    }
+  }
+`;
+
 const getProjects = async (req, res) => {
   try {
     const { headers: { user } } = req;
@@ -28,7 +40,7 @@ const getProjects = async (req, res) => {
           id: user.id,
         },
       },
-    }).$fragment(fragment);
+    }).$fragment(accessFragment);
     res.status(200).json(accesses.map(access => ({
       ...access.project,
       permissions: access.permissions,
@@ -55,7 +67,7 @@ const getProject = async (req, res) => {
       },
     });
     if (access) {
-      const project = await prisma.project({ id });
+      const project = await prisma.project({ id }).$fragment(projectFragment);
       return res.status(200).json({ ...project, permissions: access.permissions });
     }
     res.status(422).json(null);
@@ -114,4 +126,22 @@ const createProject = async (req, res) => {
   }
 };
 
-export { getProjects, getProject, createProject };
+const editProject = async (req, res) => {
+  try {
+    const { params: { id }, body: { name, description } } = req;
+    const project = await prisma.updateProject({ where: { id }, data: { name, description } });
+    res.status(200).json(project);
+  } catch (e) {
+    res.status(422).json({
+      error: e.message,
+      raw: e,
+    });
+  }
+};
+
+export {
+  getProjects,
+  getProject,
+  createProject,
+  editProject,
+};
