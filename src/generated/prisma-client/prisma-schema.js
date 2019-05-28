@@ -925,11 +925,9 @@ type PageInfo {
 
 enum Priority {
   Critical
-  Blocker
   High
   Medium
   Low
-  Minor
 }
 
 type Project {

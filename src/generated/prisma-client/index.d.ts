@@ -296,13 +296,7 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type Priority =
-  | "Critical"
-  | "Blocker"
-  | "High"
-  | "Medium"
-  | "Low"
-  | "Minor";
+export type Priority = "Critical" | "High" | "Medium" | "Low";
 
 export type Type = "Task" | "Bug" | "Improvement";
 

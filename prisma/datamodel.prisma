@@ -51,11 +51,9 @@ type Card {
 
 enum Priority {
   Critical
-  Blocker
   High
   Medium
   Low
-  Minor
 }
 
 enum Type {
