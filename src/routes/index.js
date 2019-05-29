@@ -1,15 +1,17 @@
 import express from 'express';
 
-import userRouter from './user';
 import authRouter from './auth';
-import projectRouter from './project';
 import boardRouter from './board';
+import cardRouter from './card';
+import projectRouter from './project';
+import userRouter from './user';
 
 const apiRouter = express.Router();
 
 apiRouter.use('/', authRouter);
+apiRouter.use('/board', boardRouter);
 apiRouter.use('/user', userRouter);
 apiRouter.use('/project', projectRouter);
-apiRouter.use('/board', boardRouter);
+apiRouter.use('/card', cardRouter);
 
 export default apiRouter;
