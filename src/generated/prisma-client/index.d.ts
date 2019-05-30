@@ -306,7 +306,11 @@ export type BoardOrderByInput =
   | "name_ASC"
   | "name_DESC"
   | "description_ASC"
-  | "description_DESC";
+  | "description_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type ColumnOrderByInput =
   | "id_ASC"
@@ -314,7 +318,11 @@ export type ColumnOrderByInput =
   | "name_ASC"
   | "name_DESC"
   | "settings_ASC"
-  | "settings_DESC";
+  | "settings_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type CardOrderByInput =
   | "id_ASC"
@@ -326,13 +334,21 @@ export type CardOrderByInput =
   | "name_ASC"
   | "name_DESC"
   | "description_ASC"
-  | "description_DESC";
+  | "description_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type AccessOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "permissions_ASC"
-  | "permissions_DESC";
+  | "permissions_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type ProjectOrderByInput =
   | "id_ASC"
@@ -340,7 +356,11 @@ export type ProjectOrderByInput =
   | "name_ASC"
   | "name_DESC"
   | "description_ASC"
-  | "description_DESC";
+  | "description_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -358,14 +378,17 @@ export type UserOrderByInput =
   | "avatar_ASC"
   | "avatar_DESC"
   | "settings_ASC"
-  | "settings_DESC";
+  | "settings_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface BoardUpdateWithoutProjectDataInput {
-  name?: Maybe<String>;
-  description?: Maybe<String>;
-  columns?: Maybe<ColumnUpdateManyWithoutBoardInput>;
+export interface BoardUpdateWithWhereUniqueWithoutProjectInput {
+  where: BoardWhereUniqueInput;
+  data: BoardUpdateWithoutProjectDataInput;
 }
 
 export type AccessWhereUniqueInput = AtLeastOne<{
@@ -377,7 +400,7 @@ export interface CardUpdateWithWhereUniqueWithoutColumnInput {
   data: CardUpdateWithoutColumnDataInput;
 }
 
-export interface CardWhereInput {
+export interface ColumnWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -392,15 +415,7 @@ export interface CardWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  column?: Maybe<ColumnWhereInput>;
-  priority?: Maybe<Priority>;
-  priority_not?: Maybe<Priority>;
-  priority_in?: Maybe<Priority[] | Priority>;
-  priority_not_in?: Maybe<Priority[] | Priority>;
-  type?: Maybe<Type>;
-  type_not?: Maybe<Type>;
-  type_in?: Maybe<Type[] | Type>;
-  type_not_in?: Maybe<Type[] | Type>;
+  board?: Maybe<BoardWhereInput>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -415,26 +430,32 @@ export interface CardWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  description?: Maybe<String>;
-  description_not?: Maybe<String>;
-  description_in?: Maybe<String[] | String>;
-  description_not_in?: Maybe<String[] | String>;
-  description_lt?: Maybe<String>;
-  description_lte?: Maybe<String>;
-  description_gt?: Maybe<String>;
-  description_gte?: Maybe<String>;
-  description_contains?: Maybe<String>;
-  description_not_contains?: Maybe<String>;
-  description_starts_with?: Maybe<String>;
-  description_not_starts_with?: Maybe<String>;
-  description_ends_with?: Maybe<String>;
-  description_not_ends_with?: Maybe<String>;
-  AND?: Maybe<CardWhereInput[] | CardWhereInput>;
-  OR?: Maybe<CardWhereInput[] | CardWhereInput>;
-  NOT?: Maybe<CardWhereInput[] | CardWhereInput>;
+  cards_every?: Maybe<CardWhereInput>;
+  cards_some?: Maybe<CardWhereInput>;
+  cards_none?: Maybe<CardWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ColumnWhereInput[] | ColumnWhereInput>;
+  OR?: Maybe<ColumnWhereInput[] | ColumnWhereInput>;
+  NOT?: Maybe<ColumnWhereInput[] | ColumnWhereInput>;
 }
 
 export interface CardUpdateWithoutColumnDataInput {
+  user?: Maybe<UserUpdateOneRequiredInput>;
   priority?: Maybe<Priority>;
   type?: Maybe<Type>;
   name?: Maybe<String>;
@@ -540,403 +561,31 @@ export interface UserWhereInput {
   avatar_not_starts_with?: Maybe<String>;
   avatar_ends_with?: Maybe<String>;
   avatar_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
-}
-
-export interface BoardCreateManyWithoutProjectInput {
-  create?: Maybe<
-    BoardCreateWithoutProjectInput[] | BoardCreateWithoutProjectInput
-  >;
-  connect?: Maybe<BoardWhereUniqueInput[] | BoardWhereUniqueInput>;
-}
-
-export interface BoardUpdateInput {
-  project?: Maybe<ProjectUpdateOneWithoutBoardsInput>;
-  name?: Maybe<String>;
-  description?: Maybe<String>;
-  columns?: Maybe<ColumnUpdateManyWithoutBoardInput>;
-}
-
-export interface BoardCreateWithoutProjectInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  description?: Maybe<String>;
-  columns?: Maybe<ColumnCreateManyWithoutBoardInput>;
 }
 
 export interface CardUpsertWithWhereUniqueWithoutColumnInput {
   where: CardWhereUniqueInput;
   update: CardUpdateWithoutColumnDataInput;
   create: CardCreateWithoutColumnInput;
-}
-
-export interface ColumnCreateManyWithoutBoardInput {
-  create?: Maybe<
-    ColumnCreateWithoutBoardInput[] | ColumnCreateWithoutBoardInput
-  >;
-  connect?: Maybe<ColumnWhereUniqueInput[] | ColumnWhereUniqueInput>;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<UserWhereInput>;
-  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-}
-
-export interface ColumnCreateWithoutBoardInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  settings?: Maybe<Json>;
-  cards?: Maybe<CardCreateManyWithoutColumnInput>;
-}
-
-export interface ColumnSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ColumnWhereInput>;
-  AND?: Maybe<ColumnSubscriptionWhereInput[] | ColumnSubscriptionWhereInput>;
-  OR?: Maybe<ColumnSubscriptionWhereInput[] | ColumnSubscriptionWhereInput>;
-  NOT?: Maybe<ColumnSubscriptionWhereInput[] | ColumnSubscriptionWhereInput>;
-}
-
-export interface CardCreateManyWithoutColumnInput {
-  create?: Maybe<CardCreateWithoutColumnInput[] | CardCreateWithoutColumnInput>;
-  connect?: Maybe<CardWhereUniqueInput[] | CardWhereUniqueInput>;
-}
-
-export interface CardSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<CardWhereInput>;
-  AND?: Maybe<CardSubscriptionWhereInput[] | CardSubscriptionWhereInput>;
-  OR?: Maybe<CardSubscriptionWhereInput[] | CardSubscriptionWhereInput>;
-  NOT?: Maybe<CardSubscriptionWhereInput[] | CardSubscriptionWhereInput>;
-}
-
-export interface CardCreateWithoutColumnInput {
-  id?: Maybe<ID_Input>;
-  priority: Priority;
-  type: Type;
-  name: String;
-  description?: Maybe<String>;
-}
-
-export interface AccessSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<AccessWhereInput>;
-  AND?: Maybe<AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput>;
-  OR?: Maybe<AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput>;
-  NOT?: Maybe<AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput>;
-}
-
-export interface AccessUpdateInput {
-  project?: Maybe<ProjectUpdateOneRequiredInput>;
-  user?: Maybe<UserUpdateOneRequiredInput>;
-  permissions?: Maybe<Json>;
-}
-
-export interface UserUpdateInput {
-  email?: Maybe<String>;
-  password?: Maybe<String>;
-  username?: Maybe<String>;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  avatar?: Maybe<String>;
-  settings?: Maybe<Json>;
-}
-
-export interface ProjectUpdateOneRequiredInput {
-  create?: Maybe<ProjectCreateInput>;
-  update?: Maybe<ProjectUpdateDataInput>;
-  upsert?: Maybe<ProjectUpsertNestedInput>;
-  connect?: Maybe<ProjectWhereUniqueInput>;
-}
-
-export type BoardWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface ProjectUpdateDataInput {
-  name?: Maybe<String>;
-  description?: Maybe<String>;
-  user?: Maybe<UserUpdateOneRequiredInput>;
-  boards?: Maybe<BoardUpdateManyWithoutProjectInput>;
-}
-
-export interface ColumnUpdateManyMutationInput {
-  name?: Maybe<String>;
-  settings?: Maybe<Json>;
-}
-
-export interface UserUpdateOneRequiredInput {
-  create?: Maybe<UserCreateInput>;
-  update?: Maybe<UserUpdateDataInput>;
-  upsert?: Maybe<UserUpsertNestedInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export type CardWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface UserUpdateDataInput {
-  email?: Maybe<String>;
-  password?: Maybe<String>;
-  username?: Maybe<String>;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  avatar?: Maybe<String>;
-  settings?: Maybe<Json>;
-}
-
-export interface CardUpdateManyMutationInput {
-  priority?: Maybe<Priority>;
-  type?: Maybe<Type>;
-  name?: Maybe<String>;
-  description?: Maybe<String>;
-}
-
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput;
-  create: UserCreateInput;
-}
-
-export type ColumnWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface BoardUpdateManyWithoutProjectInput {
-  create?: Maybe<
-    BoardCreateWithoutProjectInput[] | BoardCreateWithoutProjectInput
-  >;
-  delete?: Maybe<BoardWhereUniqueInput[] | BoardWhereUniqueInput>;
-  connect?: Maybe<BoardWhereUniqueInput[] | BoardWhereUniqueInput>;
-  set?: Maybe<BoardWhereUniqueInput[] | BoardWhereUniqueInput>;
-  disconnect?: Maybe<BoardWhereUniqueInput[] | BoardWhereUniqueInput>;
-  update?: Maybe<
-    | BoardUpdateWithWhereUniqueWithoutProjectInput[]
-    | BoardUpdateWithWhereUniqueWithoutProjectInput
-  >;
-  upsert?: Maybe<
-    | BoardUpsertWithWhereUniqueWithoutProjectInput[]
-    | BoardUpsertWithWhereUniqueWithoutProjectInput
-  >;
-  deleteMany?: Maybe<BoardScalarWhereInput[] | BoardScalarWhereInput>;
-  updateMany?: Maybe<
-    BoardUpdateManyWithWhereNestedInput[] | BoardUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface BoardUpdateWithoutColumnsDataInput {
-  project?: Maybe<ProjectUpdateOneWithoutBoardsInput>;
-  name?: Maybe<String>;
-  description?: Maybe<String>;
-}
-
-export interface BoardUpdateWithWhereUniqueWithoutProjectInput {
-  where: BoardWhereUniqueInput;
-  data: BoardUpdateWithoutProjectDataInput;
-}
-
-export type ProjectWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface BoardUpdateManyMutationInput {
-  name?: Maybe<String>;
-  description?: Maybe<String>;
-}
-
-export interface ColumnUpdateOneRequiredWithoutCardsInput {
-  create?: Maybe<ColumnCreateWithoutCardsInput>;
-  update?: Maybe<ColumnUpdateWithoutCardsDataInput>;
-  upsert?: Maybe<ColumnUpsertWithoutCardsInput>;
-  connect?: Maybe<ColumnWhereUniqueInput>;
-}
-
-export interface ColumnUpdateManyWithoutBoardInput {
-  create?: Maybe<
-    ColumnCreateWithoutBoardInput[] | ColumnCreateWithoutBoardInput
-  >;
-  delete?: Maybe<ColumnWhereUniqueInput[] | ColumnWhereUniqueInput>;
-  connect?: Maybe<ColumnWhereUniqueInput[] | ColumnWhereUniqueInput>;
-  set?: Maybe<ColumnWhereUniqueInput[] | ColumnWhereUniqueInput>;
-  disconnect?: Maybe<ColumnWhereUniqueInput[] | ColumnWhereUniqueInput>;
-  update?: Maybe<
-    | ColumnUpdateWithWhereUniqueWithoutBoardInput[]
-    | ColumnUpdateWithWhereUniqueWithoutBoardInput
-  >;
-  upsert?: Maybe<
-    | ColumnUpsertWithWhereUniqueWithoutBoardInput[]
-    | ColumnUpsertWithWhereUniqueWithoutBoardInput
-  >;
-  deleteMany?: Maybe<ColumnScalarWhereInput[] | ColumnScalarWhereInput>;
-  updateMany?: Maybe<
-    | ColumnUpdateManyWithWhereNestedInput[]
-    | ColumnUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface BoardCreateWithoutColumnsInput {
-  id?: Maybe<ID_Input>;
-  project?: Maybe<ProjectCreateOneWithoutBoardsInput>;
-  name: String;
-  description?: Maybe<String>;
-}
-
-export interface ColumnUpdateWithWhereUniqueWithoutBoardInput {
-  where: ColumnWhereUniqueInput;
-  data: ColumnUpdateWithoutBoardDataInput;
-}
-
-export interface BoardCreateOneWithoutColumnsInput {
-  create?: Maybe<BoardCreateWithoutColumnsInput>;
-  connect?: Maybe<BoardWhereUniqueInput>;
-}
-
-export interface ColumnUpdateWithoutBoardDataInput {
-  name?: Maybe<String>;
-  settings?: Maybe<Json>;
-  cards?: Maybe<CardUpdateManyWithoutColumnInput>;
-}
-
-export interface ColumnCreateOneWithoutCardsInput {
-  create?: Maybe<ColumnCreateWithoutCardsInput>;
-  connect?: Maybe<ColumnWhereUniqueInput>;
-}
-
-export interface CardUpdateManyWithoutColumnInput {
-  create?: Maybe<CardCreateWithoutColumnInput[] | CardCreateWithoutColumnInput>;
-  delete?: Maybe<CardWhereUniqueInput[] | CardWhereUniqueInput>;
-  connect?: Maybe<CardWhereUniqueInput[] | CardWhereUniqueInput>;
-  set?: Maybe<CardWhereUniqueInput[] | CardWhereUniqueInput>;
-  disconnect?: Maybe<CardWhereUniqueInput[] | CardWhereUniqueInput>;
-  update?: Maybe<
-    | CardUpdateWithWhereUniqueWithoutColumnInput[]
-    | CardUpdateWithWhereUniqueWithoutColumnInput
-  >;
-  upsert?: Maybe<
-    | CardUpsertWithWhereUniqueWithoutColumnInput[]
-    | CardUpsertWithWhereUniqueWithoutColumnInput
-  >;
-  deleteMany?: Maybe<CardScalarWhereInput[] | CardScalarWhereInput>;
-  updateMany?: Maybe<
-    CardUpdateManyWithWhereNestedInput[] | CardUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface ProjectCreateOneInput {
-  create?: Maybe<ProjectCreateInput>;
-  connect?: Maybe<ProjectWhereUniqueInput>;
-}
-
-export interface ColumnWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  board?: Maybe<BoardWhereInput>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  cards_every?: Maybe<CardWhereInput>;
-  cards_some?: Maybe<CardWhereInput>;
-  cards_none?: Maybe<CardWhereInput>;
-  AND?: Maybe<ColumnWhereInput[] | ColumnWhereInput>;
-  OR?: Maybe<ColumnWhereInput[] | ColumnWhereInput>;
-  NOT?: Maybe<ColumnWhereInput[] | ColumnWhereInput>;
-}
-
-export interface UserCreateOneInput {
-  create?: Maybe<UserCreateInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface ProjectWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  description?: Maybe<String>;
-  description_not?: Maybe<String>;
-  description_in?: Maybe<String[] | String>;
-  description_not_in?: Maybe<String[] | String>;
-  description_lt?: Maybe<String>;
-  description_lte?: Maybe<String>;
-  description_gt?: Maybe<String>;
-  description_gte?: Maybe<String>;
-  description_contains?: Maybe<String>;
-  description_not_contains?: Maybe<String>;
-  description_starts_with?: Maybe<String>;
-  description_not_starts_with?: Maybe<String>;
-  description_ends_with?: Maybe<String>;
-  description_not_ends_with?: Maybe<String>;
-  user?: Maybe<UserWhereInput>;
-  boards_every?: Maybe<BoardWhereInput>;
-  boards_some?: Maybe<BoardWhereInput>;
-  boards_none?: Maybe<BoardWhereInput>;
-  AND?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
-  OR?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
-  NOT?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
 }
 
 export interface BoardWhereInput {
@@ -986,36 +635,46 @@ export interface BoardWhereInput {
   columns_every?: Maybe<ColumnWhereInput>;
   columns_some?: Maybe<ColumnWhereInput>;
   columns_none?: Maybe<ColumnWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<BoardWhereInput[] | BoardWhereInput>;
   OR?: Maybe<BoardWhereInput[] | BoardWhereInput>;
   NOT?: Maybe<BoardWhereInput[] | BoardWhereInput>;
 }
 
-export interface ProjectUpsertWithoutBoardsInput {
-  update: ProjectUpdateWithoutBoardsDataInput;
-  create: ProjectCreateWithoutBoardsInput;
+export interface BoardCreateManyWithoutProjectInput {
+  create?: Maybe<
+    BoardCreateWithoutProjectInput[] | BoardCreateWithoutProjectInput
+  >;
+  connect?: Maybe<BoardWhereUniqueInput[] | BoardWhereUniqueInput>;
 }
 
-export interface AccessWhereInput {
+export interface ProjectCreateWithoutBoardsInput {
   id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  project?: Maybe<ProjectWhereInput>;
-  user?: Maybe<UserWhereInput>;
-  AND?: Maybe<AccessWhereInput[] | AccessWhereInput>;
-  OR?: Maybe<AccessWhereInput[] | AccessWhereInput>;
-  NOT?: Maybe<AccessWhereInput[] | AccessWhereInput>;
+  name: String;
+  description?: Maybe<String>;
+  user: UserCreateOneInput;
+}
+
+export interface BoardCreateWithoutProjectInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  description?: Maybe<String>;
+  columns?: Maybe<ColumnCreateManyWithoutBoardInput>;
 }
 
 export interface CardScalarWhereInput {
@@ -1069,9 +728,113 @@ export interface CardScalarWhereInput {
   description_not_starts_with?: Maybe<String>;
   description_ends_with?: Maybe<String>;
   description_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<CardScalarWhereInput[] | CardScalarWhereInput>;
   OR?: Maybe<CardScalarWhereInput[] | CardScalarWhereInput>;
   NOT?: Maybe<CardScalarWhereInput[] | CardScalarWhereInput>;
+}
+
+export interface ColumnCreateManyWithoutBoardInput {
+  create?: Maybe<
+    ColumnCreateWithoutBoardInput[] | ColumnCreateWithoutBoardInput
+  >;
+  connect?: Maybe<ColumnWhereUniqueInput[] | ColumnWhereUniqueInput>;
+}
+
+export interface ProjectSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ProjectWhereInput>;
+  AND?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
+  OR?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
+  NOT?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
+}
+
+export interface ColumnCreateWithoutBoardInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  settings?: Maybe<Json>;
+  cards?: Maybe<CardCreateManyWithoutColumnInput>;
+}
+
+export interface AccessWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  project?: Maybe<ProjectWhereInput>;
+  user?: Maybe<UserWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<AccessWhereInput[] | AccessWhereInput>;
+  OR?: Maybe<AccessWhereInput[] | AccessWhereInput>;
+  NOT?: Maybe<AccessWhereInput[] | AccessWhereInput>;
+}
+
+export interface CardCreateManyWithoutColumnInput {
+  create?: Maybe<CardCreateWithoutColumnInput[] | CardCreateWithoutColumnInput>;
+  connect?: Maybe<CardWhereUniqueInput[] | CardWhereUniqueInput>;
+}
+
+export interface BoardSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<BoardWhereInput>;
+  AND?: Maybe<BoardSubscriptionWhereInput[] | BoardSubscriptionWhereInput>;
+  OR?: Maybe<BoardSubscriptionWhereInput[] | BoardSubscriptionWhereInput>;
+  NOT?: Maybe<BoardSubscriptionWhereInput[] | BoardSubscriptionWhereInput>;
+}
+
+export interface CardCreateWithoutColumnInput {
+  id?: Maybe<ID_Input>;
+  user: UserCreateOneInput;
+  priority: Priority;
+  type: Type;
+  name: String;
+  description?: Maybe<String>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -1084,9 +847,22 @@ export interface UserUpdateManyMutationInput {
   settings?: Maybe<Json>;
 }
 
-export interface CardUpdateManyWithWhereNestedInput {
-  where: CardScalarWhereInput;
-  data: CardUpdateManyDataInput;
+export interface AccessUpdateInput {
+  project?: Maybe<ProjectUpdateOneRequiredInput>;
+  user?: Maybe<UserUpdateOneRequiredInput>;
+  permissions?: Maybe<Json>;
+}
+
+export interface ProjectUpdateManyMutationInput {
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+}
+
+export interface ProjectUpdateOneRequiredInput {
+  create?: Maybe<ProjectCreateInput>;
+  update?: Maybe<ProjectUpdateDataInput>;
+  upsert?: Maybe<ProjectUpsertNestedInput>;
+  connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
 export interface ProjectUpdateInput {
@@ -1096,11 +872,25 @@ export interface ProjectUpdateInput {
   boards?: Maybe<BoardUpdateManyWithoutProjectInput>;
 }
 
-export interface CardUpdateManyDataInput {
-  priority?: Maybe<Priority>;
-  type?: Maybe<Type>;
+export interface ProjectUpdateDataInput {
   name?: Maybe<String>;
   description?: Maybe<String>;
+  user?: Maybe<UserUpdateOneRequiredInput>;
+  boards?: Maybe<BoardUpdateManyWithoutProjectInput>;
+}
+
+export interface ColumnUpdateInput {
+  board?: Maybe<BoardUpdateOneRequiredWithoutColumnsInput>;
+  name?: Maybe<String>;
+  settings?: Maybe<Json>;
+  cards?: Maybe<CardUpdateManyWithoutColumnInput>;
+}
+
+export interface UserUpdateOneRequiredInput {
+  create?: Maybe<UserCreateInput>;
+  update?: Maybe<UserUpdateDataInput>;
+  upsert?: Maybe<UserUpsertNestedInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
 }
 
 export interface ColumnCreateInput {
@@ -1111,16 +901,392 @@ export interface ColumnCreateInput {
   cards?: Maybe<CardCreateManyWithoutColumnInput>;
 }
 
-export interface ColumnUpsertWithWhereUniqueWithoutBoardInput {
-  where: ColumnWhereUniqueInput;
-  update: ColumnUpdateWithoutBoardDataInput;
-  create: ColumnCreateWithoutBoardInput;
+export interface UserUpdateDataInput {
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  username?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  avatar?: Maybe<String>;
+  settings?: Maybe<Json>;
+}
+
+export interface ColumnUpsertWithoutCardsInput {
+  update: ColumnUpdateWithoutCardsDataInput;
+  create: ColumnCreateWithoutCardsInput;
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
 }
 
 export interface BoardUpsertWithoutColumnsInput {
   update: BoardUpdateWithoutColumnsDataInput;
   create: BoardCreateWithoutColumnsInput;
 }
+
+export interface BoardUpdateManyWithoutProjectInput {
+  create?: Maybe<
+    BoardCreateWithoutProjectInput[] | BoardCreateWithoutProjectInput
+  >;
+  delete?: Maybe<BoardWhereUniqueInput[] | BoardWhereUniqueInput>;
+  connect?: Maybe<BoardWhereUniqueInput[] | BoardWhereUniqueInput>;
+  set?: Maybe<BoardWhereUniqueInput[] | BoardWhereUniqueInput>;
+  disconnect?: Maybe<BoardWhereUniqueInput[] | BoardWhereUniqueInput>;
+  update?: Maybe<
+    | BoardUpdateWithWhereUniqueWithoutProjectInput[]
+    | BoardUpdateWithWhereUniqueWithoutProjectInput
+  >;
+  upsert?: Maybe<
+    | BoardUpsertWithWhereUniqueWithoutProjectInput[]
+    | BoardUpsertWithWhereUniqueWithoutProjectInput
+  >;
+  deleteMany?: Maybe<BoardScalarWhereInput[] | BoardScalarWhereInput>;
+  updateMany?: Maybe<
+    BoardUpdateManyWithWhereNestedInput[] | BoardUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface BoardUpdateOneRequiredWithoutColumnsInput {
+  create?: Maybe<BoardCreateWithoutColumnsInput>;
+  update?: Maybe<BoardUpdateWithoutColumnsDataInput>;
+  upsert?: Maybe<BoardUpsertWithoutColumnsInput>;
+  connect?: Maybe<BoardWhereUniqueInput>;
+}
+
+export interface BoardUpdateManyMutationInput {
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+}
+
+export interface ColumnUpdateWithoutCardsDataInput {
+  board?: Maybe<BoardUpdateOneRequiredWithoutColumnsInput>;
+  name?: Maybe<String>;
+  settings?: Maybe<Json>;
+}
+
+export interface BoardUpdateWithoutProjectDataInput {
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+  columns?: Maybe<ColumnUpdateManyWithoutBoardInput>;
+}
+
+export interface CardUpdateInput {
+  column?: Maybe<ColumnUpdateOneRequiredWithoutCardsInput>;
+  user?: Maybe<UserUpdateOneRequiredInput>;
+  priority?: Maybe<Priority>;
+  type?: Maybe<Type>;
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+}
+
+export interface ColumnUpdateManyWithoutBoardInput {
+  create?: Maybe<
+    ColumnCreateWithoutBoardInput[] | ColumnCreateWithoutBoardInput
+  >;
+  delete?: Maybe<ColumnWhereUniqueInput[] | ColumnWhereUniqueInput>;
+  connect?: Maybe<ColumnWhereUniqueInput[] | ColumnWhereUniqueInput>;
+  set?: Maybe<ColumnWhereUniqueInput[] | ColumnWhereUniqueInput>;
+  disconnect?: Maybe<ColumnWhereUniqueInput[] | ColumnWhereUniqueInput>;
+  update?: Maybe<
+    | ColumnUpdateWithWhereUniqueWithoutBoardInput[]
+    | ColumnUpdateWithWhereUniqueWithoutBoardInput
+  >;
+  upsert?: Maybe<
+    | ColumnUpsertWithWhereUniqueWithoutBoardInput[]
+    | ColumnUpsertWithWhereUniqueWithoutBoardInput
+  >;
+  deleteMany?: Maybe<ColumnScalarWhereInput[] | ColumnScalarWhereInput>;
+  updateMany?: Maybe<
+    | ColumnUpdateManyWithWhereNestedInput[]
+    | ColumnUpdateManyWithWhereNestedInput
+  >;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  email?: Maybe<String>;
+}>;
+
+export interface ColumnUpdateWithWhereUniqueWithoutBoardInput {
+  where: ColumnWhereUniqueInput;
+  data: ColumnUpdateWithoutBoardDataInput;
+}
+
+export interface ColumnCreateWithoutCardsInput {
+  id?: Maybe<ID_Input>;
+  board: BoardCreateOneWithoutColumnsInput;
+  name: String;
+  settings?: Maybe<Json>;
+}
+
+export interface ColumnUpdateWithoutBoardDataInput {
+  name?: Maybe<String>;
+  settings?: Maybe<Json>;
+  cards?: Maybe<CardUpdateManyWithoutColumnInput>;
+}
+
+export interface CardCreateInput {
+  id?: Maybe<ID_Input>;
+  column: ColumnCreateOneWithoutCardsInput;
+  user: UserCreateOneInput;
+  priority: Priority;
+  type: Type;
+  name: String;
+  description?: Maybe<String>;
+}
+
+export interface CardUpdateManyWithoutColumnInput {
+  create?: Maybe<CardCreateWithoutColumnInput[] | CardCreateWithoutColumnInput>;
+  delete?: Maybe<CardWhereUniqueInput[] | CardWhereUniqueInput>;
+  connect?: Maybe<CardWhereUniqueInput[] | CardWhereUniqueInput>;
+  set?: Maybe<CardWhereUniqueInput[] | CardWhereUniqueInput>;
+  disconnect?: Maybe<CardWhereUniqueInput[] | CardWhereUniqueInput>;
+  update?: Maybe<
+    | CardUpdateWithWhereUniqueWithoutColumnInput[]
+    | CardUpdateWithWhereUniqueWithoutColumnInput
+  >;
+  upsert?: Maybe<
+    | CardUpsertWithWhereUniqueWithoutColumnInput[]
+    | CardUpsertWithWhereUniqueWithoutColumnInput
+  >;
+  deleteMany?: Maybe<CardScalarWhereInput[] | CardScalarWhereInput>;
+  updateMany?: Maybe<
+    CardUpdateManyWithWhereNestedInput[] | CardUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface AccessCreateInput {
+  id?: Maybe<ID_Input>;
+  project: ProjectCreateOneInput;
+  user: UserCreateOneInput;
+  permissions?: Maybe<Json>;
+}
+
+export interface CardWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  column?: Maybe<ColumnWhereInput>;
+  user?: Maybe<UserWhereInput>;
+  priority?: Maybe<Priority>;
+  priority_not?: Maybe<Priority>;
+  priority_in?: Maybe<Priority[] | Priority>;
+  priority_not_in?: Maybe<Priority[] | Priority>;
+  type?: Maybe<Type>;
+  type_not?: Maybe<Type>;
+  type_in?: Maybe<Type[] | Type>;
+  type_not_in?: Maybe<Type[] | Type>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<CardWhereInput[] | CardWhereInput>;
+  OR?: Maybe<CardWhereInput[] | CardWhereInput>;
+  NOT?: Maybe<CardWhereInput[] | CardWhereInput>;
+}
+
+export interface ProjectCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  description?: Maybe<String>;
+  user: UserCreateOneInput;
+  boards?: Maybe<BoardCreateManyWithoutProjectInput>;
+}
+
+export interface ProjectWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  user?: Maybe<UserWhereInput>;
+  boards_every?: Maybe<BoardWhereInput>;
+  boards_some?: Maybe<BoardWhereInput>;
+  boards_none?: Maybe<BoardWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
+  OR?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
+  NOT?: Maybe<ProjectWhereInput[] | ProjectWhereInput>;
+}
+
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  email: String;
+  password: String;
+  username?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  avatar?: Maybe<String>;
+  settings?: Maybe<Json>;
+}
+
+export interface ProjectUpsertWithoutBoardsInput {
+  update: ProjectUpdateWithoutBoardsDataInput;
+  create: ProjectCreateWithoutBoardsInput;
+}
+
+export interface ColumnSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ColumnWhereInput>;
+  AND?: Maybe<ColumnSubscriptionWhereInput[] | ColumnSubscriptionWhereInput>;
+  OR?: Maybe<ColumnSubscriptionWhereInput[] | ColumnSubscriptionWhereInput>;
+  NOT?: Maybe<ColumnSubscriptionWhereInput[] | ColumnSubscriptionWhereInput>;
+}
+
+export interface ProjectUpdateWithoutBoardsDataInput {
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+  user?: Maybe<UserUpdateOneRequiredInput>;
+}
+
+export interface AccessSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<AccessWhereInput>;
+  AND?: Maybe<AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput>;
+  OR?: Maybe<AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput>;
+  NOT?: Maybe<AccessSubscriptionWhereInput[] | AccessSubscriptionWhereInput>;
+}
+
+export interface CardUpdateManyWithWhereNestedInput {
+  where: CardScalarWhereInput;
+  data: CardUpdateManyDataInput;
+}
+
+export type BoardWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface CardUpdateManyDataInput {
+  priority?: Maybe<Priority>;
+  type?: Maybe<Type>;
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+}
+
+export type CardWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ColumnUpsertWithWhereUniqueWithoutBoardInput {
+  where: ColumnWhereUniqueInput;
+  update: ColumnUpdateWithoutBoardDataInput;
+  create: ColumnCreateWithoutBoardInput;
+}
+
+export type ColumnWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
 
 export interface ColumnScalarWhereInput {
   id?: Maybe<ID_Input>;
@@ -1151,39 +1317,51 @@ export interface ColumnScalarWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<ColumnScalarWhereInput[] | ColumnScalarWhereInput>;
   OR?: Maybe<ColumnScalarWhereInput[] | ColumnScalarWhereInput>;
   NOT?: Maybe<ColumnScalarWhereInput[] | ColumnScalarWhereInput>;
 }
 
-export interface ColumnUpdateWithoutCardsDataInput {
-  board?: Maybe<BoardUpdateOneRequiredWithoutColumnsInput>;
-  name?: Maybe<String>;
-  settings?: Maybe<Json>;
-}
+export type ProjectWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
 
 export interface ColumnUpdateManyWithWhereNestedInput {
   where: ColumnScalarWhereInput;
   data: ColumnUpdateManyDataInput;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  email?: Maybe<String>;
-}>;
+export interface BoardCreateWithoutColumnsInput {
+  id?: Maybe<ID_Input>;
+  project?: Maybe<ProjectCreateOneWithoutBoardsInput>;
+  name: String;
+  description?: Maybe<String>;
+}
 
 export interface ColumnUpdateManyDataInput {
   name?: Maybe<String>;
   settings?: Maybe<Json>;
 }
 
-export interface CardCreateInput {
-  id?: Maybe<ID_Input>;
-  column: ColumnCreateOneWithoutCardsInput;
-  priority: Priority;
-  type: Type;
-  name: String;
-  description?: Maybe<String>;
+export interface ColumnCreateOneWithoutCardsInput {
+  create?: Maybe<ColumnCreateWithoutCardsInput>;
+  connect?: Maybe<ColumnWhereUniqueInput>;
 }
 
 export interface BoardUpsertWithWhereUniqueWithoutProjectInput {
@@ -1192,12 +1370,9 @@ export interface BoardUpsertWithWhereUniqueWithoutProjectInput {
   create: BoardCreateWithoutProjectInput;
 }
 
-export interface ProjectCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  description?: Maybe<String>;
-  user: UserCreateOneInput;
-  boards?: Maybe<BoardCreateManyWithoutProjectInput>;
+export interface ProjectCreateOneInput {
+  create?: Maybe<ProjectCreateInput>;
+  connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
 export interface BoardScalarWhereInput {
@@ -1243,20 +1418,36 @@ export interface BoardScalarWhereInput {
   description_not_starts_with?: Maybe<String>;
   description_ends_with?: Maybe<String>;
   description_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<BoardScalarWhereInput[] | BoardScalarWhereInput>;
   OR?: Maybe<BoardScalarWhereInput[] | BoardScalarWhereInput>;
   NOT?: Maybe<BoardScalarWhereInput[] | BoardScalarWhereInput>;
 }
 
-export interface ProjectSubscriptionWhereInput {
+export interface UserSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ProjectWhereInput>;
-  AND?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
-  OR?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
-  NOT?: Maybe<ProjectSubscriptionWhereInput[] | ProjectSubscriptionWhereInput>;
+  node?: Maybe<UserWhereInput>;
+  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
 }
 
 export interface BoardUpdateManyWithWhereNestedInput {
@@ -1264,9 +1455,14 @@ export interface BoardUpdateManyWithWhereNestedInput {
   data: BoardUpdateManyDataInput;
 }
 
-export interface ProjectUpdateManyMutationInput {
-  name?: Maybe<String>;
-  description?: Maybe<String>;
+export interface UserUpdateInput {
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  username?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  avatar?: Maybe<String>;
+  settings?: Maybe<Json>;
 }
 
 export interface BoardUpdateManyDataInput {
@@ -1274,9 +1470,11 @@ export interface BoardUpdateManyDataInput {
   description?: Maybe<String>;
 }
 
-export interface ColumnUpsertWithoutCardsInput {
-  update: ColumnUpdateWithoutCardsDataInput;
-  create: ColumnCreateWithoutCardsInput;
+export interface CardUpdateManyMutationInput {
+  priority?: Maybe<Priority>;
+  type?: Maybe<Type>;
+  name?: Maybe<String>;
+  description?: Maybe<String>;
 }
 
 export interface ProjectUpsertNestedInput {
@@ -1284,47 +1482,26 @@ export interface ProjectUpsertNestedInput {
   create: ProjectCreateInput;
 }
 
-export interface CardUpdateInput {
-  column?: Maybe<ColumnUpdateOneRequiredWithoutCardsInput>;
-  priority?: Maybe<Priority>;
-  type?: Maybe<Type>;
-  name?: Maybe<String>;
-  description?: Maybe<String>;
+export interface ColumnUpdateOneRequiredWithoutCardsInput {
+  create?: Maybe<ColumnCreateWithoutCardsInput>;
+  update?: Maybe<ColumnUpdateWithoutCardsDataInput>;
+  upsert?: Maybe<ColumnUpsertWithoutCardsInput>;
+  connect?: Maybe<ColumnWhereUniqueInput>;
 }
 
 export interface AccessUpdateManyMutationInput {
   permissions?: Maybe<Json>;
 }
 
-export interface AccessCreateInput {
-  id?: Maybe<ID_Input>;
-  project: ProjectCreateOneInput;
-  user: UserCreateOneInput;
-  permissions?: Maybe<Json>;
-}
-
-export interface ProjectUpdateWithoutBoardsDataInput {
-  name?: Maybe<String>;
-  description?: Maybe<String>;
-  user?: Maybe<UserUpdateOneRequiredInput>;
-}
-
-export interface BoardSubscriptionWhereInput {
+export interface CardSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<BoardWhereInput>;
-  AND?: Maybe<BoardSubscriptionWhereInput[] | BoardSubscriptionWhereInput>;
-  OR?: Maybe<BoardSubscriptionWhereInput[] | BoardSubscriptionWhereInput>;
-  NOT?: Maybe<BoardSubscriptionWhereInput[] | BoardSubscriptionWhereInput>;
-}
-
-export interface ProjectCreateWithoutBoardsInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  description?: Maybe<String>;
-  user: UserCreateOneInput;
+  node?: Maybe<CardWhereInput>;
+  AND?: Maybe<CardSubscriptionWhereInput[] | CardSubscriptionWhereInput>;
+  OR?: Maybe<CardSubscriptionWhereInput[] | CardSubscriptionWhereInput>;
+  NOT?: Maybe<CardSubscriptionWhereInput[] | CardSubscriptionWhereInput>;
 }
 
 export interface ProjectCreateOneWithoutBoardsInput {
@@ -1340,6 +1517,13 @@ export interface BoardCreateInput {
   columns?: Maybe<ColumnCreateManyWithoutBoardInput>;
 }
 
+export interface BoardUpdateInput {
+  project?: Maybe<ProjectUpdateOneWithoutBoardsInput>;
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+  columns?: Maybe<ColumnUpdateManyWithoutBoardInput>;
+}
+
 export interface ProjectUpdateOneWithoutBoardsInput {
   create?: Maybe<ProjectCreateWithoutBoardsInput>;
   update?: Maybe<ProjectUpdateWithoutBoardsDataInput>;
@@ -1349,36 +1533,25 @@ export interface ProjectUpdateOneWithoutBoardsInput {
   connect?: Maybe<ProjectWhereUniqueInput>;
 }
 
-export interface ColumnUpdateInput {
-  board?: Maybe<BoardUpdateOneRequiredWithoutColumnsInput>;
+export interface ColumnUpdateManyMutationInput {
   name?: Maybe<String>;
   settings?: Maybe<Json>;
-  cards?: Maybe<CardUpdateManyWithoutColumnInput>;
 }
 
-export interface UserCreateInput {
-  id?: Maybe<ID_Input>;
-  email: String;
-  password: String;
-  username?: Maybe<String>;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  avatar?: Maybe<String>;
-  settings?: Maybe<Json>;
+export interface UserCreateOneInput {
+  create?: Maybe<UserCreateInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface ColumnCreateWithoutCardsInput {
-  id?: Maybe<ID_Input>;
-  board: BoardCreateOneWithoutColumnsInput;
-  name: String;
-  settings?: Maybe<Json>;
-}
-
-export interface BoardUpdateOneRequiredWithoutColumnsInput {
+export interface BoardCreateOneWithoutColumnsInput {
   create?: Maybe<BoardCreateWithoutColumnsInput>;
-  update?: Maybe<BoardUpdateWithoutColumnsDataInput>;
-  upsert?: Maybe<BoardUpsertWithoutColumnsInput>;
   connect?: Maybe<BoardWhereUniqueInput>;
+}
+
+export interface BoardUpdateWithoutColumnsDataInput {
+  project?: Maybe<ProjectUpdateOneWithoutBoardsInput>;
+  name?: Maybe<String>;
+  description?: Maybe<String>;
 }
 
 export interface NodeNode {
@@ -1394,6 +1567,8 @@ export interface UserPreviousValues {
   lastName?: String;
   avatar?: String;
   settings?: Json;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface UserPreviousValuesPromise
@@ -1407,6 +1582,8 @@ export interface UserPreviousValuesPromise
   lastName: () => Promise<String>;
   avatar: () => Promise<String>;
   settings: () => Promise<Json>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -1420,6 +1597,90 @@ export interface UserPreviousValuesSubscription
   lastName: () => Promise<AsyncIterator<String>>;
   avatar: () => Promise<AsyncIterator<String>>;
   settings: () => Promise<AsyncIterator<Json>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface AggregateAccess {
+  count: Int;
+}
+
+export interface AggregateAccessPromise
+  extends Promise<AggregateAccess>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateAccessSubscription
+  extends Promise<AsyncIterator<AggregateAccess>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Board {
+  id: ID_Output;
+  name: String;
+  description?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface BoardPromise extends Promise<Board>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  project: <T = ProjectPromise>() => T;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+  columns: <T = FragmentableArray<Column>>(args?: {
+    where?: ColumnWhereInput;
+    orderBy?: ColumnOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface BoardSubscription
+  extends Promise<AsyncIterator<Board>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  project: <T = ProjectSubscription>() => T;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  columns: <T = Promise<AsyncIterator<ColumnSubscription>>>(args?: {
+    where?: ColumnWhereInput;
+    orderBy?: ColumnOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface BoardNullablePromise
+  extends Promise<Board | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  project: <T = ProjectPromise>() => T;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+  columns: <T = FragmentableArray<Column>>(args?: {
+    where?: ColumnWhereInput;
+    orderBy?: ColumnOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface BoardEdge {
@@ -1437,6 +1698,153 @@ export interface BoardEdgeSubscription
     Fragmentable {
   node: <T = BoardSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ColumnPreviousValues {
+  id: ID_Output;
+  name: String;
+  settings?: Json;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ColumnPreviousValuesPromise
+  extends Promise<ColumnPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  settings: () => Promise<Json>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ColumnPreviousValuesSubscription
+  extends Promise<AsyncIterator<ColumnPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  settings: () => Promise<AsyncIterator<Json>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface BoardConnection {
+  pageInfo: PageInfo;
+  edges: BoardEdge[];
+}
+
+export interface BoardConnectionPromise
+  extends Promise<BoardConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<BoardEdge>>() => T;
+  aggregate: <T = AggregateBoardPromise>() => T;
+}
+
+export interface BoardConnectionSubscription
+  extends Promise<AsyncIterator<BoardConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<BoardEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateBoardSubscription>() => T;
+}
+
+export interface AccessEdge {
+  node: Access;
+  cursor: String;
+}
+
+export interface AccessEdgePromise extends Promise<AccessEdge>, Fragmentable {
+  node: <T = AccessPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface AccessEdgeSubscription
+  extends Promise<AsyncIterator<AccessEdge>>,
+    Fragmentable {
+  node: <T = AccessSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ProjectPreviousValues {
+  id: ID_Output;
+  name: String;
+  description?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ProjectPreviousValuesPromise
+  extends Promise<ProjectPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectPreviousValuesSubscription
+  extends Promise<AsyncIterator<ProjectPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
 export interface ProjectSubscriptionPayload {
@@ -1464,196 +1872,20 @@ export interface ProjectSubscriptionPayloadSubscription
   previousValues: <T = ProjectPreviousValuesSubscription>() => T;
 }
 
-export interface BoardConnection {
-  pageInfo: PageInfo;
-  edges: BoardEdge[];
-}
-
-export interface BoardConnectionPromise
-  extends Promise<BoardConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<BoardEdge>>() => T;
-  aggregate: <T = AggregateBoardPromise>() => T;
-}
-
-export interface BoardConnectionSubscription
-  extends Promise<AsyncIterator<BoardConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<BoardEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateBoardSubscription>() => T;
-}
-
-export interface AggregateAccess {
+export interface AggregateProject {
   count: Int;
 }
 
-export interface AggregateAccessPromise
-  extends Promise<AggregateAccess>,
+export interface AggregateProjectPromise
+  extends Promise<AggregateProject>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateAccessSubscription
-  extends Promise<AsyncIterator<AggregateAccess>>,
+export interface AggregateProjectSubscription
+  extends Promise<AsyncIterator<AggregateProject>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface AccessEdge {
-  node: Access;
-  cursor: String;
-}
-
-export interface AccessEdgePromise extends Promise<AccessEdge>, Fragmentable {
-  node: <T = AccessPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface AccessEdgeSubscription
-  extends Promise<AsyncIterator<AccessEdge>>,
-    Fragmentable {
-  node: <T = AccessSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ProjectPreviousValues {
-  id: ID_Output;
-  name: String;
-  description?: String;
-}
-
-export interface ProjectPreviousValuesPromise
-  extends Promise<ProjectPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-}
-
-export interface ProjectPreviousValuesSubscription
-  extends Promise<AsyncIterator<ProjectPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-}
-
-export interface Project {
-  id: ID_Output;
-  name: String;
-  description?: String;
-}
-
-export interface ProjectPromise extends Promise<Project>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-  user: <T = UserPromise>() => T;
-  boards: <T = FragmentableArray<Board>>(args?: {
-    where?: BoardWhereInput;
-    orderBy?: BoardOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface ProjectSubscription
-  extends Promise<AsyncIterator<Project>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-  user: <T = UserSubscription>() => T;
-  boards: <T = Promise<AsyncIterator<BoardSubscription>>>(args?: {
-    where?: BoardWhereInput;
-    orderBy?: BoardOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface ProjectNullablePromise
-  extends Promise<Project | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-  user: <T = UserPromise>() => T;
-  boards: <T = FragmentableArray<Board>>(args?: {
-    where?: BoardWhereInput;
-    orderBy?: BoardOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
 }
 
 export interface PageInfo {
@@ -1679,26 +1911,32 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ProjectEdge {
-  node: Project;
-  cursor: String;
+export interface ProjectConnection {
+  pageInfo: PageInfo;
+  edges: ProjectEdge[];
 }
 
-export interface ProjectEdgePromise extends Promise<ProjectEdge>, Fragmentable {
-  node: <T = ProjectPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ProjectEdgeSubscription
-  extends Promise<AsyncIterator<ProjectEdge>>,
+export interface ProjectConnectionPromise
+  extends Promise<ProjectConnection>,
     Fragmentable {
-  node: <T = ProjectSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ProjectEdge>>() => T;
+  aggregate: <T = AggregateProjectPromise>() => T;
+}
+
+export interface ProjectConnectionSubscription
+  extends Promise<AsyncIterator<ProjectConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ProjectEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateProjectSubscription>() => T;
 }
 
 export interface Access {
   id: ID_Output;
   permissions?: Json;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface AccessPromise extends Promise<Access>, Fragmentable {
@@ -1706,6 +1944,8 @@ export interface AccessPromise extends Promise<Access>, Fragmentable {
   project: <T = ProjectPromise>() => T;
   user: <T = UserPromise>() => T;
   permissions: () => Promise<Json>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface AccessSubscription
@@ -1715,6 +1955,8 @@ export interface AccessSubscription
   project: <T = ProjectSubscription>() => T;
   user: <T = UserSubscription>() => T;
   permissions: () => Promise<AsyncIterator<Json>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface AccessNullablePromise
@@ -1724,64 +1966,24 @@ export interface AccessNullablePromise
   project: <T = ProjectPromise>() => T;
   user: <T = UserPromise>() => T;
   permissions: () => Promise<Json>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface Column {
-  id: ID_Output;
-  name: String;
-  settings?: Json;
+export interface AggregateColumn {
+  count: Int;
 }
 
-export interface ColumnPromise extends Promise<Column>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  board: <T = BoardPromise>() => T;
-  name: () => Promise<String>;
-  settings: () => Promise<Json>;
-  cards: <T = FragmentableArray<Card>>(args?: {
-    where?: CardWhereInput;
-    orderBy?: CardOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface ColumnSubscription
-  extends Promise<AsyncIterator<Column>>,
+export interface AggregateColumnPromise
+  extends Promise<AggregateColumn>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  board: <T = BoardSubscription>() => T;
-  name: () => Promise<AsyncIterator<String>>;
-  settings: () => Promise<AsyncIterator<Json>>;
-  cards: <T = Promise<AsyncIterator<CardSubscription>>>(args?: {
-    where?: CardWhereInput;
-    orderBy?: CardOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  count: () => Promise<Int>;
 }
 
-export interface ColumnNullablePromise
-  extends Promise<Column | null>,
+export interface AggregateColumnSubscription
+  extends Promise<AsyncIterator<AggregateColumn>>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  board: <T = BoardPromise>() => T;
-  name: () => Promise<String>;
-  settings: () => Promise<Json>;
-  cards: <T = FragmentableArray<Card>>(args?: {
-    where?: CardWhereInput;
-    orderBy?: CardOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface AccessSubscriptionPayload {
@@ -1809,26 +2011,32 @@ export interface AccessSubscriptionPayloadSubscription
   previousValues: <T = AccessPreviousValuesSubscription>() => T;
 }
 
-export interface ColumnEdge {
-  node: Column;
-  cursor: String;
+export interface ColumnConnection {
+  pageInfo: PageInfo;
+  edges: ColumnEdge[];
 }
 
-export interface ColumnEdgePromise extends Promise<ColumnEdge>, Fragmentable {
-  node: <T = ColumnPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ColumnEdgeSubscription
-  extends Promise<AsyncIterator<ColumnEdge>>,
+export interface ColumnConnectionPromise
+  extends Promise<ColumnConnection>,
     Fragmentable {
-  node: <T = ColumnSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ColumnEdge>>() => T;
+  aggregate: <T = AggregateColumnPromise>() => T;
+}
+
+export interface ColumnConnectionSubscription
+  extends Promise<AsyncIterator<ColumnConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ColumnEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateColumnSubscription>() => T;
 }
 
 export interface AccessPreviousValues {
   id: ID_Output;
   permissions?: Json;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface AccessPreviousValuesPromise
@@ -1836,6 +2044,8 @@ export interface AccessPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   permissions: () => Promise<Json>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface AccessPreviousValuesSubscription
@@ -1843,22 +2053,25 @@ export interface AccessPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   permissions: () => Promise<AsyncIterator<Json>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface AggregateCard {
-  count: Int;
+export interface CardEdge {
+  node: Card;
+  cursor: String;
 }
 
-export interface AggregateCardPromise
-  extends Promise<AggregateCard>,
+export interface CardEdgePromise extends Promise<CardEdge>, Fragmentable {
+  node: <T = CardPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface CardEdgeSubscription
+  extends Promise<AsyncIterator<CardEdge>>,
     Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateCardSubscription
-  extends Promise<AsyncIterator<AggregateCard>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  node: <T = CardSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface AccessConnection {
@@ -1882,25 +2095,20 @@ export interface AccessConnectionSubscription
   aggregate: <T = AggregateAccessSubscription>() => T;
 }
 
-export interface CardConnection {
-  pageInfo: PageInfo;
-  edges: CardEdge[];
+export interface AggregateBoard {
+  count: Int;
 }
 
-export interface CardConnectionPromise
-  extends Promise<CardConnection>,
+export interface AggregateBoardPromise
+  extends Promise<AggregateBoard>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<CardEdge>>() => T;
-  aggregate: <T = AggregateCardPromise>() => T;
+  count: () => Promise<Int>;
 }
 
-export interface CardConnectionSubscription
-  extends Promise<AsyncIterator<CardConnection>>,
+export interface AggregateBoardSubscription
+  extends Promise<AsyncIterator<AggregateBoard>>,
     Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<CardEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateCardSubscription>() => T;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface BoardSubscriptionPayload {
@@ -1928,68 +2136,29 @@ export interface BoardSubscriptionPayloadSubscription
   previousValues: <T = BoardPreviousValuesSubscription>() => T;
 }
 
-export interface Board {
-  id: ID_Output;
-  name: String;
-  description?: String;
+export interface UserEdge {
+  node: User;
+  cursor: String;
 }
 
-export interface BoardPromise extends Promise<Board>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  project: <T = ProjectPromise>() => T;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-  columns: <T = FragmentableArray<Column>>(args?: {
-    where?: ColumnWhereInput;
-    orderBy?: ColumnOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface BoardSubscription
-  extends Promise<AsyncIterator<Board>>,
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  project: <T = ProjectSubscription>() => T;
-  name: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-  columns: <T = Promise<AsyncIterator<ColumnSubscription>>>(args?: {
-    where?: ColumnWhereInput;
-    orderBy?: ColumnOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface BoardNullablePromise
-  extends Promise<Board | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  project: <T = ProjectPromise>() => T;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-  columns: <T = FragmentableArray<Column>>(args?: {
-    where?: ColumnWhereInput;
-    orderBy?: ColumnOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BoardPreviousValues {
   id: ID_Output;
   name: String;
   description?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface BoardPreviousValuesPromise
@@ -1998,6 +2167,8 @@ export interface BoardPreviousValuesPromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   description: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface BoardPreviousValuesSubscription
@@ -2006,27 +2177,25 @@ export interface BoardPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
+export interface ProjectEdge {
+  node: Project;
+  cursor: String;
 }
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface ProjectEdgePromise extends Promise<ProjectEdge>, Fragmentable {
+  node: <T = ProjectPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ProjectEdgeSubscription
+  extends Promise<AsyncIterator<ProjectEdge>>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
+  node: <T = ProjectSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface User {
@@ -2038,6 +2207,8 @@ export interface User {
   lastName?: String;
   avatar?: String;
   settings?: Json;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -2049,6 +2220,8 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   lastName: () => Promise<String>;
   avatar: () => Promise<String>;
   settings: () => Promise<Json>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface UserSubscription
@@ -2062,6 +2235,8 @@ export interface UserSubscription
   lastName: () => Promise<AsyncIterator<String>>;
   avatar: () => Promise<AsyncIterator<String>>;
   settings: () => Promise<AsyncIterator<Json>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface UserNullablePromise
@@ -2075,111 +2250,46 @@ export interface UserNullablePromise
   lastName: () => Promise<String>;
   avatar: () => Promise<String>;
   settings: () => Promise<Json>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface ProjectConnection {
+export interface ColumnEdge {
+  node: Column;
+  cursor: String;
+}
+
+export interface ColumnEdgePromise extends Promise<ColumnEdge>, Fragmentable {
+  node: <T = ColumnPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ColumnEdgeSubscription
+  extends Promise<AsyncIterator<ColumnEdge>>,
+    Fragmentable {
+  node: <T = ColumnSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface CardConnection {
   pageInfo: PageInfo;
-  edges: ProjectEdge[];
+  edges: CardEdge[];
 }
 
-export interface ProjectConnectionPromise
-  extends Promise<ProjectConnection>,
+export interface CardConnectionPromise
+  extends Promise<CardConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ProjectEdge>>() => T;
-  aggregate: <T = AggregateProjectPromise>() => T;
+  edges: <T = FragmentableArray<CardEdge>>() => T;
+  aggregate: <T = AggregateCardPromise>() => T;
 }
 
-export interface ProjectConnectionSubscription
-  extends Promise<AsyncIterator<ProjectConnection>>,
+export interface CardConnectionSubscription
+  extends Promise<AsyncIterator<CardConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ProjectEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateProjectSubscription>() => T;
-}
-
-export interface CardSubscriptionPayload {
-  mutation: MutationType;
-  node: Card;
-  updatedFields: String[];
-  previousValues: CardPreviousValues;
-}
-
-export interface CardSubscriptionPayloadPromise
-  extends Promise<CardSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = CardPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = CardPreviousValuesPromise>() => T;
-}
-
-export interface CardSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<CardSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = CardSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = CardPreviousValuesSubscription>() => T;
-}
-
-export interface ColumnConnection {
-  pageInfo: PageInfo;
-  edges: ColumnEdge[];
-}
-
-export interface ColumnConnectionPromise
-  extends Promise<ColumnConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ColumnEdge>>() => T;
-  aggregate: <T = AggregateColumnPromise>() => T;
-}
-
-export interface ColumnConnectionSubscription
-  extends Promise<AsyncIterator<ColumnConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ColumnEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateColumnSubscription>() => T;
-}
-
-export interface AggregateBoard {
-  count: Int;
-}
-
-export interface AggregateBoardPromise
-  extends Promise<AggregateBoard>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateBoardSubscription
-  extends Promise<AsyncIterator<AggregateBoard>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ColumnPreviousValues {
-  id: ID_Output;
-  name: String;
-  settings?: Json;
-}
-
-export interface ColumnPreviousValuesPromise
-  extends Promise<ColumnPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  settings: () => Promise<Json>;
-}
-
-export interface ColumnPreviousValuesSubscription
-  extends Promise<AsyncIterator<ColumnPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  settings: () => Promise<AsyncIterator<Json>>;
+  edges: <T = Promise<AsyncIterator<CardEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCardSubscription>() => T;
 }
 
 export interface ColumnSubscriptionPayload {
@@ -2213,15 +2323,20 @@ export interface Card {
   type: Type;
   name: String;
   description?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface CardPromise extends Promise<Card>, Fragmentable {
   id: () => Promise<ID_Output>;
   column: <T = ColumnPromise>() => T;
+  user: <T = UserPromise>() => T;
   priority: () => Promise<Priority>;
   type: () => Promise<Type>;
   name: () => Promise<String>;
   description: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface CardSubscription
@@ -2229,10 +2344,13 @@ export interface CardSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   column: <T = ColumnSubscription>() => T;
+  user: <T = UserSubscription>() => T;
   priority: () => Promise<AsyncIterator<Priority>>;
   type: () => Promise<AsyncIterator<Type>>;
   name: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface CardNullablePromise
@@ -2240,10 +2358,13 @@ export interface CardNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   column: <T = ColumnPromise>() => T;
+  user: <T = UserPromise>() => T;
   priority: () => Promise<Priority>;
   type: () => Promise<Type>;
   name: () => Promise<String>;
   description: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface CardPreviousValues {
@@ -2252,6 +2373,8 @@ export interface CardPreviousValues {
   type: Type;
   name: String;
   description?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface CardPreviousValuesPromise
@@ -2262,6 +2385,8 @@ export interface CardPreviousValuesPromise
   type: () => Promise<Type>;
   name: () => Promise<String>;
   description: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface CardPreviousValuesSubscription
@@ -2272,79 +2397,219 @@ export interface CardPreviousValuesSubscription
   type: () => Promise<AsyncIterator<Type>>;
   name: () => Promise<AsyncIterator<String>>;
   description: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface CardEdge {
+export interface CardSubscriptionPayload {
+  mutation: MutationType;
   node: Card;
-  cursor: String;
+  updatedFields: String[];
+  previousValues: CardPreviousValues;
 }
 
-export interface CardEdgePromise extends Promise<CardEdge>, Fragmentable {
+export interface CardSubscriptionPayloadPromise
+  extends Promise<CardSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
   node: <T = CardPromise>() => T;
-  cursor: () => Promise<String>;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CardPreviousValuesPromise>() => T;
 }
 
-export interface CardEdgeSubscription
-  extends Promise<AsyncIterator<CardEdge>>,
+export interface CardSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CardSubscriptionPayload>>,
     Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
   node: <T = CardSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CardPreviousValuesSubscription>() => T;
 }
 
-export interface AggregateColumn {
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateCard {
   count: Int;
 }
 
-export interface AggregateColumnPromise
-  extends Promise<AggregateColumn>,
+export interface AggregateCardPromise
+  extends Promise<AggregateCard>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateColumnSubscription
-  extends Promise<AsyncIterator<AggregateColumn>>,
+export interface AggregateCardSubscription
+  extends Promise<AsyncIterator<AggregateCard>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface AggregateProject {
-  count: Int;
+export interface Column {
+  id: ID_Output;
+  name: String;
+  settings?: Json;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
-export interface AggregateProjectPromise
-  extends Promise<AggregateProject>,
+export interface ColumnPromise extends Promise<Column>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  board: <T = BoardPromise>() => T;
+  name: () => Promise<String>;
+  settings: () => Promise<Json>;
+  cards: <T = FragmentableArray<Card>>(args?: {
+    where?: CardWhereInput;
+    orderBy?: CardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ColumnSubscription
+  extends Promise<AsyncIterator<Column>>,
     Fragmentable {
-  count: () => Promise<Int>;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  board: <T = BoardSubscription>() => T;
+  name: () => Promise<AsyncIterator<String>>;
+  settings: () => Promise<AsyncIterator<Json>>;
+  cards: <T = Promise<AsyncIterator<CardSubscription>>>(args?: {
+    where?: CardWhereInput;
+    orderBy?: CardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface AggregateProjectSubscription
-  extends Promise<AsyncIterator<AggregateProject>>,
+export interface ColumnNullablePromise
+  extends Promise<Column | null>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  id: () => Promise<ID_Output>;
+  board: <T = BoardPromise>() => T;
+  name: () => Promise<String>;
+  settings: () => Promise<Json>;
+  cards: <T = FragmentableArray<Card>>(args?: {
+    where?: CardWhereInput;
+    orderBy?: CardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number;
+export interface Project {
+  id: ID_Output;
+  name: String;
+  description?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ProjectPromise extends Promise<Project>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+  user: <T = UserPromise>() => T;
+  boards: <T = FragmentableArray<Board>>(args?: {
+    where?: BoardWhereInput;
+    orderBy?: BoardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ProjectSubscription
+  extends Promise<AsyncIterator<Project>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  user: <T = UserSubscription>() => T;
+  boards: <T = Promise<AsyncIterator<BoardSubscription>>>(args?: {
+    where?: BoardWhereInput;
+    orderBy?: BoardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ProjectNullablePromise
+  extends Promise<Project | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+  user: <T = UserPromise>() => T;
+  boards: <T = FragmentableArray<Board>>(args?: {
+    where?: BoardWhereInput;
+    orderBy?: BoardOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
 
 export type Long = string;
+
+/*
+DateTime scalar input type, allowing Date
+*/
+export type DateTimeInput = Date | string;
+
+/*
+DateTime scalar output type, which is always a string
+*/
+export type DateTimeOutput = string;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -2356,6 +2621,11 @@ export type ID_Output = string;
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number;
 
 /*
 The `Boolean` scalar type represents `true` or `false`.

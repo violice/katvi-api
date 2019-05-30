@@ -13,6 +13,8 @@ const fragment = `
         id
         name
         description
+        type
+        priority
       }
     }
   }

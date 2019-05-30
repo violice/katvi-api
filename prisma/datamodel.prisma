@@ -7,6 +7,8 @@ type User {
   lastName: String
   avatar: String
   settings: Json
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Project {
@@ -15,6 +17,8 @@ type Project {
   description: String
   user: User!
   boards: [Board]
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Access {
@@ -22,6 +26,8 @@ type Access {
   project: Project!
   user: User!
   permissions: Json
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Board {
@@ -30,6 +36,8 @@ type Board {
   name: String!
   description: String
   columns: [Column]
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Column {
@@ -38,15 +46,20 @@ type Column {
   name: String!
   settings: Json
   cards: [Card]
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Card {
   id: ID! @id
   column: Column!
+  user: User!
   priority: Priority!
   type: Type!
   name: String!
   description: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 enum Priority {

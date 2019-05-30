@@ -8,6 +8,8 @@ module.exports = {
   project: Project!
   user: User!
   permissions: Json
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type AccessConnection {
@@ -33,11 +35,17 @@ enum AccessOrderByInput {
   id_DESC
   permissions_ASC
   permissions_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type AccessPreviousValues {
   id: ID!
   permissions: Json
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type AccessSubscriptionPayload {
@@ -85,6 +93,22 @@ input AccessWhereInput {
   id_not_ends_with: ID
   project: ProjectWhereInput
   user: UserWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [AccessWhereInput!]
   OR: [AccessWhereInput!]
   NOT: [AccessWhereInput!]
@@ -128,6 +152,8 @@ type Board {
   name: String!
   description: String
   columns(where: ColumnWhereInput, orderBy: ColumnOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Column!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type BoardConnection {
@@ -180,12 +206,18 @@ enum BoardOrderByInput {
   name_DESC
   description_ASC
   description_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type BoardPreviousValues {
   id: ID!
   name: String!
   description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input BoardScalarWhereInput {
@@ -231,6 +263,22 @@ input BoardScalarWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [BoardScalarWhereInput!]
   OR: [BoardScalarWhereInput!]
   NOT: [BoardScalarWhereInput!]
@@ -370,6 +418,22 @@ input BoardWhereInput {
   columns_every: ColumnWhereInput
   columns_some: ColumnWhereInput
   columns_none: ColumnWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [BoardWhereInput!]
   OR: [BoardWhereInput!]
   NOT: [BoardWhereInput!]
@@ -382,10 +446,13 @@ input BoardWhereUniqueInput {
 type Card {
   id: ID!
   column: Column!
+  user: User!
   priority: Priority!
   type: Type!
   name: String!
   description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type CardConnection {
@@ -397,6 +464,7 @@ type CardConnection {
 input CardCreateInput {
   id: ID
   column: ColumnCreateOneWithoutCardsInput!
+  user: UserCreateOneInput!
   priority: Priority!
   type: Type!
   name: String!
@@ -410,6 +478,7 @@ input CardCreateManyWithoutColumnInput {
 
 input CardCreateWithoutColumnInput {
   id: ID
+  user: UserCreateOneInput!
   priority: Priority!
   type: Type!
   name: String!
@@ -432,6 +501,10 @@ enum CardOrderByInput {
   name_DESC
   description_ASC
   description_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type CardPreviousValues {
@@ -440,6 +513,8 @@ type CardPreviousValues {
   type: Type!
   name: String!
   description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input CardScalarWhereInput {
@@ -493,6 +568,22 @@ input CardScalarWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [CardScalarWhereInput!]
   OR: [CardScalarWhereInput!]
   NOT: [CardScalarWhereInput!]
@@ -518,6 +609,7 @@ input CardSubscriptionWhereInput {
 
 input CardUpdateInput {
   column: ColumnUpdateOneRequiredWithoutCardsInput
+  user: UserUpdateOneRequiredInput
   priority: Priority
   type: Type
   name: String
@@ -556,6 +648,7 @@ input CardUpdateManyWithWhereNestedInput {
 }
 
 input CardUpdateWithoutColumnDataInput {
+  user: UserUpdateOneRequiredInput
   priority: Priority
   type: Type
   name: String
@@ -589,6 +682,7 @@ input CardWhereInput {
   id_ends_with: ID
   id_not_ends_with: ID
   column: ColumnWhereInput
+  user: UserWhereInput
   priority: Priority
   priority_not: Priority
   priority_in: [Priority!]
@@ -625,6 +719,22 @@ input CardWhereInput {
   description_not_starts_with: String
   description_ends_with: String
   description_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [CardWhereInput!]
   OR: [CardWhereInput!]
   NOT: [CardWhereInput!]
@@ -640,6 +750,8 @@ type Column {
   name: String!
   settings: Json
   cards(where: CardWhereInput, orderBy: CardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Card!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ColumnConnection {
@@ -692,12 +804,18 @@ enum ColumnOrderByInput {
   name_DESC
   settings_ASC
   settings_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ColumnPreviousValues {
   id: ID!
   name: String!
   settings: Json
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input ColumnScalarWhereInput {
@@ -729,6 +847,22 @@ input ColumnScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [ColumnScalarWhereInput!]
   OR: [ColumnScalarWhereInput!]
   NOT: [ColumnScalarWhereInput!]
@@ -854,6 +988,22 @@ input ColumnWhereInput {
   cards_every: CardWhereInput
   cards_some: CardWhereInput
   cards_none: CardWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [ColumnWhereInput!]
   OR: [ColumnWhereInput!]
   NOT: [ColumnWhereInput!]
@@ -862,6 +1012,8 @@ input ColumnWhereInput {
 input ColumnWhereUniqueInput {
   id: ID
 }
+
+scalar DateTime
 
 scalar Json
 
@@ -936,6 +1088,8 @@ type Project {
   description: String
   user: User!
   boards(where: BoardWhereInput, orderBy: BoardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Board!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ProjectConnection {
@@ -981,12 +1135,18 @@ enum ProjectOrderByInput {
   name_DESC
   description_ASC
   description_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ProjectPreviousValues {
   id: ID!
   name: String!
   description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ProjectSubscriptionPayload {
@@ -1105,6 +1265,22 @@ input ProjectWhereInput {
   boards_every: BoardWhereInput
   boards_some: BoardWhereInput
   boards_none: BoardWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [ProjectWhereInput!]
   OR: [ProjectWhereInput!]
   NOT: [ProjectWhereInput!]
@@ -1160,6 +1336,8 @@ type User {
   lastName: String
   avatar: String
   settings: Json
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserConnection {
@@ -1206,6 +1384,10 @@ enum UserOrderByInput {
   avatar_DESC
   settings_ASC
   settings_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type UserPreviousValues {
@@ -1217,6 +1399,8 @@ type UserPreviousValues {
   lastName: String
   avatar: String
   settings: Json
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserSubscriptionPayload {
@@ -1378,6 +1562,22 @@ input UserWhereInput {
   avatar_not_starts_with: String
   avatar_ends_with: String
   avatar_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
