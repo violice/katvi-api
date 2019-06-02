@@ -86,4 +86,21 @@ const createCard = async (req, res) => {
   }
 };
 
-export { getCard, createCard };
+const getMyCards = async (req, res) => {
+  try {
+    const {
+      headers: {
+        user,
+      },
+    } = req;
+    console.log('my cards');
+    console.log(user.id);
+    const cards = await prisma.cards({ where: { user: { id: user.id } } });
+    console.log(cards);
+    res.status(200).json(cards);
+  } catch (e) {
+    res.status(422).json({ error: e.message, raw: e });
+  }
+};
+
+export { getCard, createCard, getMyCards };
