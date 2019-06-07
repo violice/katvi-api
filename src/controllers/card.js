@@ -28,6 +28,7 @@ const createCardFragment = `
     id
     column {
       id
+      name
     }
     priority
     type
@@ -93,10 +94,13 @@ const getMyCards = async (req, res) => {
         user,
       },
     } = req;
-    console.log('my cards');
-    console.log(user.id);
-    const cards = await prisma.cards({ where: { user: { id: user.id } } });
-    console.log(cards);
+    const cards = await prisma.cards({
+      where: {
+        user: {
+          id: user.id,
+        },
+      },
+    }).$fragment(createCardFragment);
     res.status(200).json(cards);
   } catch (e) {
     res.status(422).json({ error: e.message, raw: e });
