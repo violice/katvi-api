@@ -87,6 +87,42 @@ const createCard = async (req, res) => {
   }
 };
 
+const editCard = async (req, res) => {
+  try {
+    const {
+      params: {
+        id,
+      },
+      body: {
+        name,
+        description,
+        column,
+        priority,
+        type,
+      },
+    } = req;
+    const card = await prisma.updateCard({
+      data: {
+        name,
+        description,
+        priority,
+        type,
+        column: {
+          connect: {
+            id: column,
+          },
+        },
+      },
+      where: {
+        id,
+      },
+    }).$fragment(createCardFragment);
+    res.status(200).json(card);
+  } catch (e) {
+    res.status(422).json({ error: e.message, raw: e });
+  }
+};
+
 const getMyCards = async (req, res) => {
   try {
     const {
@@ -107,4 +143,9 @@ const getMyCards = async (req, res) => {
   }
 };
 
-export { getCard, createCard, getMyCards };
+export {
+  getCard,
+  createCard,
+  editCard,
+  getMyCards,
+};

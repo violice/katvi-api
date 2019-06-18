@@ -52,6 +52,7 @@ const editBoard = async (req, res) => {
         },
         update: {
           name: col.name,
+          settings: col.settings,
         },
         create: {
           name: col.name,

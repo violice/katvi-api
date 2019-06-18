@@ -32,7 +32,7 @@ type Access {
 
 type Board {
   id: ID! @id
-  project: Project
+  project: Project!
   name: String!
   description: String
   columns: [Column]
@@ -58,6 +58,17 @@ type Card {
   type: Type!
   name: String!
   description: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Doc {
+  id: ID! @id
+  project: Project!
+  user: User!
+  name: String!
+  description: String
+  content: String
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
 }
