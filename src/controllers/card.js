@@ -1,7 +1,7 @@
 import { prisma } from 'generated/prisma-client';
 
 const getCardFragment = `
-  fragment CardWithColumn on Card {
+  fragment GetCardFragment on Card {
     id
     column {
       id
@@ -24,7 +24,7 @@ const getCardFragment = `
 `;
 
 const createCardFragment = `
-  fragment CardWithColumn on Card {
+  fragment CreateCardFragment on Card {
     id
     column {
       id

@@ -9,9 +9,9 @@ import {
 
 const cardRouter = express.Router();
 
+cardRouter.get('/my', getMyCards);
 cardRouter.get('/:id', getCard);
 cardRouter.post('/', createCard);
 cardRouter.patch('/:id', editCard);
-cardRouter.get('/my', getMyCards);
 
 export default cardRouter;
