@@ -10,7 +10,7 @@ const getDomain = (hostname) => {
   if (hostname === 'localhost') return hostname;
   // const { domain, tld } = parseDomain(hostname);
   // return `${domain}.${tld}`;
-  return 'https://katvi.herokuapp.com/';
+  return 'katvi.herokuapp.com';
 };
 
 const login = async (req, res) => {
