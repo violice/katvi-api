@@ -62,12 +62,7 @@ const registration = async (req, res) => {
     // const domain = getDomain(hostname);
     // res.cookie('katvi-token', token, { domain });
     res.clearCookie('katvi-token');
-    res.cookie('katvi-token', token, {
-      path: '/',
-      secure: true,
-      httpOnly: true,
-      domain: 'katvi.herokuapp.com',
-    });
+    res.cookie('katvi-token', token, { domain: 'katvi.herokuapp.com' });
     res.status(200).json(user);
   } catch (e) {
     res.status(422).json({
