@@ -66,6 +66,7 @@ const registration = async (req, res) => {
       path: '/',
       secure: true,
       httpOnly: true,
+      domain: 'katvi.herokuapp.com',
     });
     res.status(200).json(user);
   } catch (e) {
