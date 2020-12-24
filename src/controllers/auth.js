@@ -8,9 +8,8 @@ const createToken = user => jwt.sign(user, process.env.JWT_SECRET, { expiresIn: 
 
 const getDomain = (hostname) => {
   if (hostname === 'localhost') return hostname;
-  // const { domain, tld } = parseDomain(hostname);
-  // return `${domain}.${tld}`;
-  return 'katvi.herokuapp.com';
+  const { domain, tld } = parseDomain(hostname);
+  return `${domain}.${tld}`;
 };
 
 const login = async (req, res) => {
@@ -60,9 +59,14 @@ const registration = async (req, res) => {
     const user = await prisma.createUser({ email, password: hash });
     delete user.password;
     const token = createToken(user);
-    const domain = getDomain(hostname);
+    // const domain = getDomain(hostname);
+    // res.cookie('katvi-token', token, { domain });
     res.clearCookie('katvi-token');
-    res.cookie('katvi-token', token, { domain });
+    res.cookie('katvi-token', token, {
+      path: '/',
+      secure: true,
+      httpOnly: true,
+    });
     res.status(200).json(user);
   } catch (e) {
     res.status(422).json({
