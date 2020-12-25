@@ -9,7 +9,8 @@ export default (req, res, next) => {
   if (WHITE_LIST.includes(req.path)) {
     next();
   } else {
-    const { 'katvi-token': token } = req.cookies;
+    const bearer = req.headers.authorization;
+    const token = bearer && bearer.split(' ')[1];
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
